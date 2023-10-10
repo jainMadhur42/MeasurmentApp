@@ -51,7 +51,7 @@ struct ContentView: View {
                      EmptyView()
                      }
                      
-                     NavigationLink(destination: LoadMeasurement(), isActive: $navigateToSecondScreen) {
+                     NavigationLink(destination: VesselList(), isActive: $navigateToSecondScreen) {
                      EmptyView()
                      }
                     

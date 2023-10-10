@@ -36,15 +36,15 @@ struct NewMeasurement: View {
                                     .cornerRadius(10).padding(20)
                             }
                     Button(action: {
-                    self.navigateToFirstScreen = true
+                        self.navigateToFirstScreen = true
                     }) {
-                    Text("Next")
-                    .fontWeight(.bold)
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.black)
-                    .cornerRadius(10)
-                    .padding(20)
+                        Text("Next")
+                            .fontWeight(.bold)
+                            .padding()
+                            .background(Color.green)
+                            .foregroundColor(.black)
+                            .cornerRadius(10)
+                            .padding(20)
                    
                         
                     NavigationLink(destination: MetaData(), isActive: $navigateToFirstScreen) {

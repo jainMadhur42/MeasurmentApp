@@ -16,7 +16,7 @@ class ARDelegate: NSObject, ARSCNViewDelegate, ObservableObject {
         self.arView = arView
         
         let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = .horizontal
+        configuration.planeDetection = .vertical
         arView.session.run(configuration)
         
         arView.delegate = self
