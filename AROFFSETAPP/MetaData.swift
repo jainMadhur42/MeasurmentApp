@@ -19,6 +19,7 @@ struct MetaData: View {
     }
    
     @State private var navigateToFirstScreen = false
+    var vesselInfoLoader: VesselInfoLoader
     
     var body: some View {
         ZStack{ Color(myColor).ignoresSafeArea(.all)
@@ -95,11 +96,11 @@ struct MetaData: View {
     
     private func saveDetails() {
         
-        LocalVesselInfo(id: UUID()
-                        , contactEmail: email
-                        , contactPersonName: name
-                        , vesselName: vesselName
-                        , organisation: organisation)
+        vesselInfoLoader.insert(vesselInfo: LocalVesselInfo(id: UUID()
+                                                            , contactEmail: email
+                                                            , contactPersonName: name
+                                                            , vesselName: vesselName
+                                                            , organisation: organisation))
     }
     
     private func textFieldValidatorEmail(_ string: String) -> Bool {
@@ -114,7 +115,7 @@ struct MetaData: View {
 
 struct MetaData_Previews: PreviewProvider {
     static var previews: some View {
-        MetaData()
+        MetaData(vesselInfoLoader: LocalVesselLoader())
     }
 }
 

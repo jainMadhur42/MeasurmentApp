@@ -27,6 +27,36 @@ public final class CoreDataStore {
         }
     }
     
+    func insert(vesselInfo: LocalVesselInfo) {
+        perform { context in
+            do {
+                let managedVesselInfo = ManagedVesselInfo(context: context)
+                try managedVesselInfo.update(with: vesselInfo, in: context)
+            } catch let error {
+                print("Error \(error)")
+            }
+        }
+    }
+    
+    func retrieve(completion: @escaping (Result<[LocalVesselInfo], Error>) -> Void) {
+        perform { context in
+            do {
+                guard let managedVesselInfo =  try? ManagedVesselInfo.fetch(in: context) else {
+                    
+                    completion(.failure(NSError(domain: "Item not found", code: 123)))
+                    return
+                }
+                completion(.success(managedVesselInfo.map {
+                    LocalVesselInfo(id: $0.id
+                                    , contactEmail: $0.contactEmail
+                                    , contactPersonName: $0.contactPersonName
+                                    , vesselName: $0.vesselName
+                                    , organisation: $0.organisation)
+                }))
+            }
+        }
+    }
+    
     func retrieve(completion: @escaping (Result<[LocalVesselDistance], Error>) -> Void) {
         perform { context in
             do {

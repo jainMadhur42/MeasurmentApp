@@ -9,12 +9,6 @@ import Foundation
 import ARKit
 import UIKit
 
-protocol VesselDistanceLoader {
-    
-    func insert(vesselDistance: LocalVesselDistance)
-    func retrieve(completion: @escaping (Result<[LocalVesselDistance], Error>) -> Void)
-}
-
 class ARDelegate: NSObject, ARSCNViewDelegate, ObservableObject {
     @Published var message:String = "starting AR"
     

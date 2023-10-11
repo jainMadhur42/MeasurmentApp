@@ -51,7 +51,8 @@ struct ContentView: View {
                      EmptyView()
                      }
                      
-                     NavigationLink(destination: VesselList(), isActive: $navigateToSecondScreen) {
+                     NavigationLink(destination:
+                                        VesselList(vesselInfoLoader: CoreDataVesselLoader()), isActive: $navigateToSecondScreen) {
                      EmptyView()
                      }
                     

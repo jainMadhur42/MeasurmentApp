@@ -47,7 +47,9 @@ struct NewMeasurement: View {
                             .padding(20)
                    
                         
-                    NavigationLink(destination: MetaData(), isActive: $navigateToFirstScreen) {
+                    NavigationLink(destination:
+                                    MetaData(vesselInfoLoader: CoreDataVesselLoader())
+                                   , isActive: $navigateToFirstScreen) {
                          EmptyView()
                          }
                     }

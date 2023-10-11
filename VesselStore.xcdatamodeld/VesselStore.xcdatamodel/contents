@@ -12,8 +12,10 @@
         <attribute name="z2" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <entity name="ManagedVesselInfo" representedClassName="ManagedVesselInfo" syncable="YES">
-        <attribute name="contact" attributeType="String"/>
+        <attribute name="contactEmail" attributeType="String"/>
+        <attribute name="contactPersonName" attributeType="String"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="name" attributeType="String"/>
+        <attribute name="organisation" optional="YES" attributeType="String"/>
+        <attribute name="vesselName" optional="YES" attributeType="String"/>
     </entity>
 </model>

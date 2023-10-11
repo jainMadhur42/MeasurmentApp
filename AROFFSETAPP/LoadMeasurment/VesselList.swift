@@ -9,21 +9,31 @@ import SwiftUI
 
 struct VesselList: View {
     
-    @State private var vessels: [String] = ["Vessel 1","Vessel 2","Vessel 3", "Vessel 4", "Vessel 5"]
-     
+    var vesselInfoLoader: VesselInfoLoader
+    @State private var vessels = [LocalVesselInfo]()
+    
     var body: some View {
         
-        List(vessels, id: \.self) { vessel in
-            NavigationLink(vessel) {
+        List(vessels, id: \.id) { vessel in
+            NavigationLink(vessel.vesselName) {
                 MeasurmentList(vesselLoader: CoreDataVesselLoader())
             }
         }
-        
+        .onAppear() {
+            vesselInfoLoader.retrieve { result in
+                switch result {
+                case .success(let vessels):
+                    self.vessels = vessels
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
     }
 }
 
 struct VesselList_Previews: PreviewProvider {
     static var previews: some View {
-        VesselList()
+        VesselList(vesselInfoLoader: LocalVesselLoader())
     }
 }
