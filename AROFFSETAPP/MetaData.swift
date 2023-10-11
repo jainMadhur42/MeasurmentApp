@@ -1,117 +1,115 @@
 import SwiftUI
 
-// Step 1: Define a data model
-struct UserDetails: Codable {
-   
-}
-
 struct MetaData: View {
-  @State private  var vesselname: String = ""
+    
+    private var isValidationSuccessful: Bool {
+        isFieldEmpty(vesselName)
+        || isFieldEmpty(name)
+        || textFieldValidatorEmail(email)
+        || isFieldEmpty(organisation) ? false : true
+    }
+    @State private var errorMessage: String = ""
+    @State private var vesselName: String = ""
     @State private var name: String = ""
     @State private var email: String = ""
-    @State private var organization: String = ""
+    @State private var organisation: String = ""
     
-    var isvesselnameEmpty: Bool {
-            return vesselname.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-        }
-    var isnameEmpty: Bool {
-            return name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-        }
-    var isemailEmpty: Bool {
-            return email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-        }
-    var isorganizationEmpty: Bool {
-            return organization.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-        }
-    
-    // Step 1: Create an instance of the data model
-   // @State private var userDetails = UserDetails()
-   // @State private var enteredText: String = ""
+    private func isFieldEmpty(_ field: String) -> Bool {
+        return field.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+   
     @State private var navigateToFirstScreen = false
     
-    class EmailValidator: ObservableObject {
-        @Published var email: String = ""
-        private let emailRegex = try! NSRegularExpression(pattern: "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}")
-
-        func isValidEmail() -> Bool {
-            let range = NSRange(location: 0, length: email.utf16.count)
-            return emailRegex.firstMatch(in: email, options: [], range: range) != nil
-        }
-    }
-        @StateObject private var emailValidator = EmailValidator()
-
     var body: some View {
         ZStack{ Color(myColor).ignoresSafeArea(.all)
             VStack{
                 Text("New Measurement Metadata")
-                    .font(.title).fontWeight(.bold).foregroundColor(.white).multilineTextAlignment(.center)
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
                     .padding(.bottom,80)
                 
-                TextField("Vessel Name or Unique ID", text: $vesselname)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .padding()
-                TextField("Contact Name", text: $name)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .padding()
-               /* TextField("Contact Email", text: $emailValidator.email)
-                                .padding()
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .autocapitalization(.none)
-                                .keyboardType(.emailAddress)*/
-                TextField("Contact Email", text: $email)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .padding()
-                TextField("Trusted Node Organization/Name", text: $organization)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .padding()
-
-                /* Text(emailValidator.isValidEmail() ? "Valid Email" : "Invalid Email")
-                                .foregroundColor(emailValidator.isValidEmail() ? .green : .red)
-                                .padding(.top, 50) */
-                
-                            
-                Button(action: {
-                    if (self.isvesselnameEmpty || self.isnameEmpty || self.isorganizationEmpty) || self.isemailEmpty {
-                        
-                    }
-                    else{
-                        saveDetails()
-                        self.navigateToFirstScreen = true
-                    }
-                
-                }) {
-                Text("Next")
-                .fontWeight(.bold)
+                TextField("Vessel Name or Unique ID"
+                            , text: $vesselName
+                            , onEditingChanged: { _ in
+                                errorMessage = isFieldEmpty(vesselName)
+                                        ? "Vessel Name is empty" : ""
+                            })
+                .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-                .background(Color.green)
-                .foregroundColor(.black)
-                .cornerRadius(10)
-                .padding(20)
-               
-                    
-                NavigationLink(destination: HowTo(), isActive: $navigateToFirstScreen) {
-                     EmptyView()
-                     }
+                .autocorrectionDisabled(true)
+                
+                TextField("Contact Name"
+                          , text: $name
+                          , onEditingChanged: { _ in
+                                errorMessage = isFieldEmpty(name)
+                                        ? "Contact Name is empty" : ""
+                })
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+                .keyboardType(.emailAddress)
+                .autocorrectionDisabled(true)
+                
+                TextField("Contact Email"
+                          , text: $email
+                          , onEditingChanged: { _ in
+                                errorMessage  = textFieldValidatorEmail(email)
+                    ? "Email Format is wrong" : ""
+                })
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+                .keyboardType(.emailAddress)
+                .autocorrectionDisabled(true)
+                
+                TextField("Trusted Node Organization/Name", text: $organisation, onEditingChanged: { _ in
+                    errorMessage = isFieldEmpty(organisation)
+                            ? "Organisation is empty" : ""
+                })
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+                .keyboardType(.namePhonePad)
+                .autocorrectionDisabled(true)
+
+                Text(isValidationSuccessful ? "" : errorMessage)
+                    .foregroundColor(.white)
+                Button {
+                    saveDetails()
+                    self.navigateToFirstScreen.toggle()
+                } label: {
+                    Text("Next")
+                        .fontWeight(.bold)
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(isValidationSuccessful ? .black : .gray)
+                        .cornerRadius(10)
+                        .padding(20)
                 }
-                   
+                .disabled(!isValidationSuccessful)
+            }
+            NavigationLink(destination: ARView(), isActive: $navigateToFirstScreen) {
+                
             }
         }
     }
-    func saveDetails() {
+    
+    private func saveDetails() {
         
-        print("Captured User Details:")
-        print("Vessel Name or Unique ID: \(vesselname)")
-        print("Contact Name: \(name)")
-        print("Contact Email: \(emailValidator.email)")
-        print("Organization: \(organization)")
+        LocalVesselInfo(id: UUID()
+                        , contactEmail: email
+                        , contactPersonName: name
+                        , vesselName: vesselName
+                        , organisation: organisation)
     }
-    func isValidEmail(email: String) -> Bool {
-            // Regular expression for validating email format
-            let emailRegex = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-
-            let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
-            return emailPredicate.evaluate(with: email)
-        }
+    
+    private func textFieldValidatorEmail(_ string: String) -> Bool {
+            if string.count > 100 {
+                return false
+            }
+            let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}" // short format
+            let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailFormat)
+            return !emailPredicate.evaluate(with: string)
+    }
 }
 
 struct MetaData_Previews: PreviewProvider {

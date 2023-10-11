@@ -9,18 +9,28 @@ import SwiftUI
 
 struct MeasurmentList: View {
 
+    var vesselLoader: VesselDistanceLoader
+    @State var vesselDistances: [LocalVesselDistance] = []
+    
     var body: some View {
-        List {
-            MeasurmentListItem()
-            MeasurmentListItem()
-            MeasurmentListItem()
-            MeasurmentListItem()
+        List(vesselDistances) { vesselDistance in
+            MeasurmentListItem(vesselDistance: vesselDistance)
+        }
+        .onAppear() {
+            vesselLoader.retrieve { result in
+                switch result {
+                case .success(let distances):
+                    self.vesselDistances = distances
+                case .failure(let error):
+                    print("Error")
+                }
+            }
         }
     }
 }
 
 struct MeasurmentList_Previews: PreviewProvider {
     static var previews: some View {
-        MeasurmentList()
+        MeasurmentList(vesselLoader: LocalVesselLoader())
     }
 }

@@ -24,7 +24,8 @@ struct ARViewRepresentable: UIViewRepresentable {
 }
 
 struct ARViewRepresentable_Previews: PreviewProvider {
+    
     static var previews: some View {
-        ARViewRepresentable(arDelegate: ARDelegate())
+        ARViewRepresentable(arDelegate: ARDelegate(loader: LocalVesselLoader()))
     }
 }

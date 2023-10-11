@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ARView: View {
-    @ObservedObject var arDelegate = ARDelegate()
+    @ObservedObject var arDelegate = ARDelegate(loader: CoreDataVesselLoader())
     
     var body: some View {
         ZStack {

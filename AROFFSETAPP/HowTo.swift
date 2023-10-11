@@ -23,7 +23,7 @@ struct HowTo: View {
                 Text("3.Take it slow") .font(.title3).fontWeight(.bold).foregroundColor(.white).multilineTextAlignment(.center)
                 Spacer()
                 Button(action: {
-                self.navigateToFirstScreen = true
+                    self.navigateToFirstScreen = true
                 }) {
                     Text("Next")
                         .fontWeight(.bold)

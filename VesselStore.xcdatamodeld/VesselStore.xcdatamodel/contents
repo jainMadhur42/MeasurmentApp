@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="21G419" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ManagedDistance" representedClassName="ManagedDistance" syncable="YES">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="distance" attributeType="Float" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="x1" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="x2" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="y1" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="y2" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="z1" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="z2" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="ManagedVesselInfo" representedClassName="ManagedVesselInfo" syncable="YES">
+        <attribute name="contact" attributeType="String"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+    </entity>
+</model>

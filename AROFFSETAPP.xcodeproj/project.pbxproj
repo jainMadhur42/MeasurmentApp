@@ -27,6 +27,14 @@
 		E0C7F9452AD51F2D000C8505 /* MeasurmentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F9442AD51F2D000C8505 /* MeasurmentList.swift */; };
 		E0C7F9472AD522EA000C8505 /* MeasurmentListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F9462AD522EA000C8505 /* MeasurmentListItem.swift */; };
 		E0C7F9492AD52B38000C8505 /* VesselList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F9482AD52B38000C8505 /* VesselList.swift */; };
+		E0C7F9542AD66BE5000C8505 /* VesselStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F9522AD66BE5000C8505 /* VesselStore.xcdatamodeld */; };
+		E0C7F9572AD66EC8000C8505 /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F9562AD66EC8000C8505 /* CoreDataStore.swift */; };
+		E0C7F9592AD66F0A000C8505 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F9582AD66F0A000C8505 /* CoreDataHelper.swift */; };
+		E0C7F95B2AD66F51000C8505 /* LocalVesselInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F95A2AD66F51000C8505 /* LocalVesselInfo.swift */; };
+		E0C7F95D2AD66FFE000C8505 /* LocalVesselDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F95C2AD66FFE000C8505 /* LocalVesselDistance.swift */; };
+		E0C7F95F2AD670D9000C8505 /* ManagedVesselInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F95E2AD670D9000C8505 /* ManagedVesselInfo.swift */; };
+		E0C7F9612AD670E8000C8505 /* ManagedVesselDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F9602AD670E8000C8505 /* ManagedVesselDistance.swift */; };
+		E0C7F9632AD676F2000C8505 /* LocalVesselLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F9622AD676F2000C8505 /* LocalVesselLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +78,14 @@
 		E0C7F9442AD51F2D000C8505 /* MeasurmentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurmentList.swift; sourceTree = "<group>"; };
 		E0C7F9462AD522EA000C8505 /* MeasurmentListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurmentListItem.swift; sourceTree = "<group>"; };
 		E0C7F9482AD52B38000C8505 /* VesselList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VesselList.swift; sourceTree = "<group>"; };
+		E0C7F9532AD66BE5000C8505 /* VesselStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VesselStore.xcdatamodel; sourceTree = "<group>"; };
+		E0C7F9562AD66EC8000C8505 /* CoreDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
+		E0C7F9582AD66F0A000C8505 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		E0C7F95A2AD66F51000C8505 /* LocalVesselInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalVesselInfo.swift; sourceTree = "<group>"; };
+		E0C7F95C2AD66FFE000C8505 /* LocalVesselDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalVesselDistance.swift; sourceTree = "<group>"; };
+		E0C7F95E2AD670D9000C8505 /* ManagedVesselInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedVesselInfo.swift; sourceTree = "<group>"; };
+		E0C7F9602AD670E8000C8505 /* ManagedVesselDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedVesselDistance.swift; sourceTree = "<group>"; };
+		E0C7F9622AD676F2000C8505 /* LocalVesselLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalVesselLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +116,7 @@
 		7D0300B02AAFB29B0098500A = {
 			isa = PBXGroup;
 			children = (
+				E0C7F9522AD66BE5000C8505 /* VesselStore.xcdatamodeld */,
 				7D0300BB2AAFB29B0098500A /* AROFFSETAPP */,
 				7D0300CC2AAFB29C0098500A /* AROFFSETAPPTests */,
 				7D0300D62AAFB29C0098500A /* AROFFSETAPPUITests */,
@@ -120,6 +137,7 @@
 		7D0300BB2AAFB29B0098500A /* AROFFSETAPP */ = {
 			isa = PBXGroup;
 			children = (
+				E0C7F9552AD66EB9000C8505 /* CoreData */,
 				E0C7F9432AD51EFA000C8505 /* LoadMeasurment */,
 				E02A84652AD13B8900701C72 /* ArkitMeasurment */,
 				7D0300BC2AAFB29B0098500A /* AROFFSETAPPApp.swift */,
@@ -132,6 +150,7 @@
 				7D7537C72ACCC7AB0027E891 /* Service.swift */,
 				7D0300C02AAFB29C0098500A /* Assets.xcassets */,
 				7D0300C22AAFB29C0098500A /* Preview Content */,
+				E0C7F9622AD676F2000C8505 /* LocalVesselLoader.swift */,
 			);
 			path = AROFFSETAPP;
 			sourceTree = "<group>";
@@ -180,6 +199,19 @@
 				E0C7F9482AD52B38000C8505 /* VesselList.swift */,
 			);
 			path = LoadMeasurment;
+			sourceTree = "<group>";
+		};
+		E0C7F9552AD66EB9000C8505 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				E0C7F9562AD66EC8000C8505 /* CoreDataStore.swift */,
+				E0C7F9582AD66F0A000C8505 /* CoreDataHelper.swift */,
+				E0C7F95A2AD66F51000C8505 /* LocalVesselInfo.swift */,
+				E0C7F95C2AD66FFE000C8505 /* LocalVesselDistance.swift */,
+				E0C7F95E2AD670D9000C8505 /* ManagedVesselInfo.swift */,
+				E0C7F9602AD670E8000C8505 /* ManagedVesselDistance.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,15 +350,23 @@
 				E02A846C2AD13BE400701C72 /* ARViewRepresentable.swift in Sources */,
 				E02A846A2AD13BE400701C72 /* ARView.swift in Sources */,
 				E0C7F9492AD52B38000C8505 /* VesselList.swift in Sources */,
+				E0C7F95F2AD670D9000C8505 /* ManagedVesselInfo.swift in Sources */,
+				E0C7F9592AD66F0A000C8505 /* CoreDataHelper.swift in Sources */,
 				7D5F06212AB18E1D0004E9E8 /* NewMeasurement.swift in Sources */,
+				E0C7F95D2AD66FFE000C8505 /* LocalVesselDistance.swift in Sources */,
 				7D0300BF2AAFB29B0098500A /* ContentView.swift in Sources */,
 				7D0300BD2AAFB29B0098500A /* AROFFSETAPPApp.swift in Sources */,
 				7DBE1DE62AB3C60A00E32091 /* HowTo.swift in Sources */,
 				7D5F061F2AB18E0E0004E9E8 /* LoadMeasurement.swift in Sources */,
+				E0C7F9612AD670E8000C8505 /* ManagedVesselDistance.swift in Sources */,
+				E0C7F9572AD66EC8000C8505 /* CoreDataStore.swift in Sources */,
+				E0C7F9632AD676F2000C8505 /* LocalVesselLoader.swift in Sources */,
 				E0C7F9452AD51F2D000C8505 /* MeasurmentList.swift in Sources */,
 				E0C7F9472AD522EA000C8505 /* MeasurmentListItem.swift in Sources */,
 				7D7537C82ACCC7AB0027E891 /* Service.swift in Sources */,
+				E0C7F95B2AD66F51000C8505 /* LocalVesselInfo.swift in Sources */,
 				7D5F06232AB283960004E9E8 /* MetaData.swift in Sources */,
+				E0C7F9542AD66BE5000C8505 /* VesselStore.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,6 +700,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E0C7F9522AD66BE5000C8505 /* VesselStore.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E0C7F9532AD66BE5000C8505 /* VesselStore.xcdatamodel */,
+			);
+			currentVersion = E0C7F9532AD66BE5000C8505 /* VesselStore.xcdatamodel */;
+			path = VesselStore.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7D0300B12AAFB29B0098500A /* Project object */;
 }
