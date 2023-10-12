@@ -89,6 +89,6 @@ struct MeasurmentListItem_Previews: PreviewProvider {
                                                                , y2: 23.5
                                                                , z1: 15.4
                                                                , z2: 16.6
-                                                               , distance: 25.6))
+                                                               , distance: 25.6, vesselId: UUID()))
     }
 }

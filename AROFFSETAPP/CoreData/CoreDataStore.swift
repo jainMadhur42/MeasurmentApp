@@ -27,11 +27,11 @@ public final class CoreDataStore {
         }
     }
     
-    func insert(vesselInfo: LocalVesselInfo) {
+    func insert(vesselInfo: LocalVesselInfo, completion: @escaping (Result<UUID, Error>) -> Void) {
         perform { context in
             do {
                 let managedVesselInfo = ManagedVesselInfo(context: context)
-                try managedVesselInfo.update(with: vesselInfo, in: context)
+                try managedVesselInfo.update(with: vesselInfo, completion: completion, in: context)
             } catch let error {
                 print("Error \(error)")
             }
@@ -57,17 +57,22 @@ public final class CoreDataStore {
         }
     }
     
-    func retrieve(completion: @escaping (Result<[LocalVesselDistance], Error>) -> Void) {
+    func retrieve(for vesselId: UUID, completion: @escaping (Result<[LocalVesselDistance], Error>) -> Void) {
         perform { context in
             do {
-                guard let managedDistance =  try? ManagedDistance.fetch(in: context) else {
+                guard let managedDistance =  try? ManagedDistance.fetch(for: vesselId, in: context) else {
                     
                     completion(.failure(NSError(domain: "Item not found", code: 123)))
                     return
                 }
                 completion(.success(managedDistance.map {
                     LocalVesselDistance(id: $0.id, x1: $0.x1, x2: $0.x2, y1: $0.y1
-                                        , y2: $0.y2, z1: $0.z1, z2: $0.z2, distance: $0.distance, date: $0.date)
+                                        , y2: $0.y2
+                                        , z1: $0.z1
+                                        , z2: $0.z2
+                                        , distance: $0.distance
+                                        , date: $0.date
+                                        , vesselId: $0.vessel.id)
                 }))
             }
         }

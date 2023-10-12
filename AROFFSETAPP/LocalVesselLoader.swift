@@ -10,12 +10,12 @@ import CoreData
 protocol VesselDistanceLoader {
     
     func insert(vesselDistance: LocalVesselDistance)
-    func retrieve(completion: @escaping (Result<[LocalVesselDistance], Error>) -> Void)
+    func retrieve(for vesselId: UUID, completion: @escaping (Result<[LocalVesselDistance], Error>) -> Void)
 }
 
 protocol VesselInfoLoader {
     
-    func insert(vesselInfo: LocalVesselInfo)
+    func insert(vesselInfo: LocalVesselInfo, completion: @escaping (Result<UUID, Error>) -> Void)
     func retrieve(completion: @escaping (Result<[LocalVesselInfo], Error>) -> Void)
 }
 
@@ -32,15 +32,15 @@ struct CoreDataVesselLoader: VesselDistanceLoader {
         store.insert(vesselDistance: vesselDistance)
     }
     
-    func retrieve(completion: @escaping (Result<[LocalVesselDistance], Error>) -> Void) {
-        store.retrieve(completion: completion)
+    func retrieve(for vesselId: UUID, completion: @escaping (Result<[LocalVesselDistance], Error>) -> Void) {
+        store.retrieve(for: vesselId, completion: completion)
     }
 }
 
 extension CoreDataVesselLoader: VesselInfoLoader {
     
-    func insert(vesselInfo: LocalVesselInfo) {
-        store.insert(vesselInfo: vesselInfo)
+    func insert(vesselInfo: LocalVesselInfo, completion: @escaping (Result<UUID, Error>) -> Void) {
+        store.insert(vesselInfo: vesselInfo, completion: completion)
     }
     
     func retrieve(completion: @escaping (Result<[LocalVesselInfo], Error>) -> Void) {
@@ -57,14 +57,14 @@ struct LocalVesselLoader: VesselDistanceLoader {
         LocalVesselLoader.distances.append(vesselDistance)
     }
     
-    func retrieve(completion: @escaping (Result<[LocalVesselDistance], Error>) -> Void) {
+    func retrieve(for vesselId: UUID, completion: @escaping (Result<[LocalVesselDistance], Error>) -> Void) {
         completion(.success(LocalVesselLoader.distances))
     }
 }
 
 extension LocalVesselLoader: VesselInfoLoader {
     
-    func insert(vesselInfo: LocalVesselInfo) {
+    func insert(vesselInfo: LocalVesselInfo, completion: (Result<UUID, Error>) -> Void) {
         LocalVesselLoader.vessels.append(vesselInfo)
     }
     

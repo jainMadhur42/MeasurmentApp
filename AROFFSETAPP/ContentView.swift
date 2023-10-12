@@ -3,66 +3,83 @@ import SwiftUI
 let myColor = #colorLiteral(red: 0.02966547571, green: 0.123657383, blue: 0.1941029727, alpha: 1)
 
 struct ContentView: View {
-     @State private var navigateToFirstScreen = false
-        @State private var navigateToSecondScreen = false
+    
+    @State private var showNewMeasurment = false
+    @State private var showLoadMeasurment = false
+    @State private var calculateDistance = false
+    @AppStorage(Constants.activeVessel) private var activeVesselInfo = UUID().uuidString
     
     var body: some View {
         NavigationView {
-            
-            ZStack{
-                Color(myColor).ignoresSafeArea(.all)
-                VStack{
+            VStack {
+                 Spacer()
+                 Text("Crowdsourced Bathymetry")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
                    
-                     Text("Crowdsourced Bathymetry").font(.title).fontWeight(.bold).foregroundColor(.white)
-                        //.position(CGPoint(x: 200.0, y: 50.0))
-                     Text("Vessel Offset Measurement Tool").font(.title).fontWeight(.bold).foregroundColor(.white).multilineTextAlignment(.center)
-                        //.position(CGPoint(x: 200.0, y: 150.0))
-                   Spacer()
-                    
-                    Button(action: {
-                    self.navigateToFirstScreen = true
-                    }) {
+                 Text("Vessel Offset Measurement Tool")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                
+                Text(activeVesselInfo)
+                
+                
+                Button {
+                    showNewMeasurment.toggle()
+                } label: {
                     Text("New Measurement")
-                    .fontWeight(.bold)
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.black)
-                    .cornerRadius(10)
-                   // .position(x:200,y:370)
-                    }
-                    Button(action: {
-                    self.navigateToSecondScreen = true
-                    }) {
-                    Text("Load Measurement")
-                    .fontWeight(.bold)
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.black)
-                    .cornerRadius(10)
-                    //.position(x:200,y:450)
-                    }
-                    Spacer()
-                       Image("comitlogodesc").resizable()
-                     .aspectRatio(contentMode:.fit)
-                    // .position(CGPoint(x: 200.0, y: 500.0))
-                     
-                   
-                    NavigationLink(destination: NewMeasurement(), isActive: $navigateToFirstScreen) {
-                     EmptyView()
-                     }
-                     
-                     NavigationLink(destination:
-                                        VesselList(vesselInfoLoader: CoreDataVesselLoader()), isActive: $navigateToSecondScreen) {
-                     EmptyView()
-                     }
-                    
+                        .fontWeight(.bold)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
                 }
+                
+                Button {
+                    showLoadMeasurment.toggle()
+                } label: {
+                    Text("Load Measurement")
+                        .fontWeight(.bold)
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                }
+                
+                Button {
+                    calculateDistance.toggle()
+                } label: {
+                    Text("Calculate Distance")
+                        .fontWeight(.bold)
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                }
+                
+                Image("comitlogodesc")
+                    .resizable()
+                    .aspectRatio(contentMode:.fit)
+                
+                
+                NavigationLink(destination: ARView()
+                               , isActive: $calculateDistance) {
+                    EmptyView()
+                 }
+                 
+                 NavigationLink(destination: VesselList(vesselInfoLoader: CoreDataVesselLoader())
+                                , isActive: $showLoadMeasurment) {
+                     EmptyView()
+                 }
             }
+            .background(Color(myColor))
+            .ignoresSafeArea(.all)
         }
     }
-
-                
-            }
+}
             
 
 

@@ -35,6 +35,7 @@
 		E0C7F95F2AD670D9000C8505 /* ManagedVesselInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F95E2AD670D9000C8505 /* ManagedVesselInfo.swift */; };
 		E0C7F9612AD670E8000C8505 /* ManagedVesselDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F9602AD670E8000C8505 /* ManagedVesselDistance.swift */; };
 		E0C7F9632AD676F2000C8505 /* LocalVesselLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F9622AD676F2000C8505 /* LocalVesselLoader.swift */; };
+		E0C7F96D2AD7C99E000C8505 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F96C2AD7C99E000C8505 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		E0C7F95E2AD670D9000C8505 /* ManagedVesselInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedVesselInfo.swift; sourceTree = "<group>"; };
 		E0C7F9602AD670E8000C8505 /* ManagedVesselDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedVesselDistance.swift; sourceTree = "<group>"; };
 		E0C7F9622AD676F2000C8505 /* LocalVesselLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalVesselLoader.swift; sourceTree = "<group>"; };
+		E0C7F96C2AD7C99E000C8505 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 				7D0300C02AAFB29C0098500A /* Assets.xcassets */,
 				7D0300C22AAFB29C0098500A /* Preview Content */,
 				E0C7F9622AD676F2000C8505 /* LocalVesselLoader.swift */,
+				E0C7F96C2AD7C99E000C8505 /* Constants.swift */,
 			);
 			path = AROFFSETAPP;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				E0C7F95B2AD66F51000C8505 /* LocalVesselInfo.swift in Sources */,
 				7D5F06232AB283960004E9E8 /* MetaData.swift in Sources */,
 				E0C7F9542AD66BE5000C8505 /* VesselStore.xcdatamodeld in Sources */,
+				E0C7F96D2AD7C99E000C8505 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

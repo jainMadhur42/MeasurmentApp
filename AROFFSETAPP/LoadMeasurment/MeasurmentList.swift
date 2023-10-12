@@ -10,6 +10,7 @@ import SwiftUI
 struct MeasurmentList: View {
 
     var vesselLoader: VesselDistanceLoader
+    var vesselId: UUID
     @State var vesselDistances: [LocalVesselDistance] = []
     
     var body: some View {
@@ -17,12 +18,12 @@ struct MeasurmentList: View {
             MeasurmentListItem(vesselDistance: vesselDistance)
         }
         .onAppear() {
-            vesselLoader.retrieve { result in
+            vesselLoader.retrieve(for: vesselId) { result in
                 switch result {
                 case .success(let distances):
                     self.vesselDistances = distances
                 case .failure(let error):
-                    print("Error")
+                    print("Error \(error)")
                 }
             }
         }
@@ -31,6 +32,6 @@ struct MeasurmentList: View {
 
 struct MeasurmentList_Previews: PreviewProvider {
     static var previews: some View {
-        MeasurmentList(vesselLoader: LocalVesselLoader())
+        MeasurmentList(vesselLoader: LocalVesselLoader(), vesselId: UUID())
     }
 }

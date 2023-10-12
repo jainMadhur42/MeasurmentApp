@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct ARView: View {
-    @ObservedObject var arDelegate = ARDelegate(loader: CoreDataVesselLoader())
     
+    @AppStorage(Constants.activeVessel) private var activeVesselInfo = UUID().uuidString
+    @ObservedObject var arDelegate = ARDelegate(loader: CoreDataVesselLoader())
+     
     var body: some View {
         ZStack {
-            ARViewRepresentable(arDelegate: arDelegate)
+            ARViewRepresentable(arDelegate: arDelegate
+                                , activeVesselId: UUID(uuidString: activeVesselInfo)!)
             VStack {
                 Spacer()
                 Text(arDelegate.message)

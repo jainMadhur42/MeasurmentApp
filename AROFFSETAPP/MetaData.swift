@@ -13,6 +13,7 @@ struct MetaData: View {
     @State private var name: String = ""
     @State private var email: String = ""
     @State private var organisation: String = ""
+    @AppStorage(Constants.activeVessel) private var activeVesselInfo = UUID().uuidString
     
     private func isFieldEmpty(_ field: String) -> Bool {
         return field.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
@@ -22,7 +23,9 @@ struct MetaData: View {
     var vesselInfoLoader: VesselInfoLoader
     
     var body: some View {
-        ZStack{ Color(myColor).ignoresSafeArea(.all)
+        ZStack {
+            Color(myColor)
+                .ignoresSafeArea(.all)
             VStack{
                 Text("New Measurement Metadata")
                     .font(.title)
@@ -95,12 +98,21 @@ struct MetaData: View {
     }
     
     private func saveDetails() {
-        
-        vesselInfoLoader.insert(vesselInfo: LocalVesselInfo(id: UUID()
-                                                            , contactEmail: email
-                                                            , contactPersonName: name
-                                                            , vesselName: vesselName
-                                                            , organisation: organisation))
+        print(activeVesselInfo.description)
+        let localVesselInfo = LocalVesselInfo(id: UUID()
+                                               , contactEmail: email
+                                               , contactPersonName: name
+                                               , vesselName: vesselName
+                                               , organisation: organisation)
+        vesselInfoLoader.insert(vesselInfo: localVesselInfo, completion: { result in
+            switch result {
+            case .success(let uuid):
+                activeVesselInfo = uuid.uuidString
+            case .failure(let error):
+                print("error Occurred \(error)")
+            }
+
+        })
     }
     
     private func textFieldValidatorEmail(_ string: String) -> Bool {

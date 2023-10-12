@@ -10,6 +10,7 @@
         <attribute name="y2" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="z1" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="z2" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="vessel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedVesselInfo" inverseName="distances" inverseEntity="ManagedVesselInfo"/>
     </entity>
     <entity name="ManagedVesselInfo" representedClassName="ManagedVesselInfo" syncable="YES">
         <attribute name="contactEmail" attributeType="String"/>
@@ -17,5 +18,6 @@
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="organisation" optional="YES" attributeType="String"/>
         <attribute name="vesselName" optional="YES" attributeType="String"/>
+        <relationship name="distances" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ManagedDistance" inverseName="vessel" inverseEntity="ManagedDistance"/>
     </entity>
 </model>

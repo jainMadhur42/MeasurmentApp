@@ -12,8 +12,9 @@ import UIKit
 class ARDelegate: NSObject, ARSCNViewDelegate, ObservableObject {
     @Published var message:String = "starting AR"
     
-    func setARView(_ arView: ARSCNView) {
+    func setARView(_ arView: ARSCNView, activeVesselId: UUID) {
         self.arView = arView
+        self.activeVesselId = activeVesselId
         
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
@@ -77,7 +78,8 @@ class ARDelegate: NSObject, ARSCNViewDelegate, ObservableObject {
     private var circles:[SCNNode] = []
     private var trackedNode:SCNNode?
     var loader: VesselDistanceLoader
-
+    var activeVesselId: UUID?
+    
     init(loader: VesselDistanceLoader) {
         self.loader = loader
     }
@@ -119,13 +121,16 @@ class ARDelegate: NSObject, ARSCNViewDelegate, ObservableObject {
             print("distance = \(distance)")
             message = "distance " + String(format: "%.2f cm", distance)
             
+            guard let activeVesselId = self.activeVesselId else { return }
+            
             let localVesselDistance = LocalVesselDistance(x1: firstNode.position.x
-                                , x2: secondNode.position.x
-                                , y1: firstNode.position.y
-                                , y2: secondNode.position.y
-                                , z1: firstNode.position.z
-                                , z2: secondNode.position.z
-                                , distance: distance)
+                                                          , x2: secondNode.position.x
+                                                          , y1: firstNode.position.y
+                                                          , y2: secondNode.position.y
+                                                          , z1: firstNode.position.z
+                                                          , z2: secondNode.position.z
+                                                          , distance: distance
+                                                          , vesselId: activeVesselId)
             loader.insert(vesselDistance: localVesselDistance)
         }
         else {

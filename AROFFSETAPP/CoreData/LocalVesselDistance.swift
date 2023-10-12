@@ -19,8 +19,9 @@ struct LocalVesselDistance: Identifiable {
     var z2: Float
     var distance: Float
     var date: Date
+    var vesselId: UUID
     
-    init(id: UUID = UUID(), x1: Float, x2: Float, y1: Float, y2: Float, z1: Float, z2: Float, distance: Float, date: Date = Date()) {
+    init(id: UUID = UUID(), x1: Float, x2: Float, y1: Float, y2: Float, z1: Float, z2: Float, distance: Float, date: Date = Date(), vesselId: UUID) {
         self.id = id
         self.x1 = x1
         self.x2 = x2
@@ -30,5 +31,6 @@ struct LocalVesselDistance: Identifiable {
         self.z2 = z2
         self.distance = distance
         self.date = date
+        self.vesselId = vesselId
     }
 }

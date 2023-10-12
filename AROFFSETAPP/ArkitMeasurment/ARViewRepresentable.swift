@@ -10,11 +10,12 @@ import SwiftUI
 
 struct ARViewRepresentable: UIViewRepresentable {
     let arDelegate:ARDelegate
+    var activeVesselId: UUID
     
     func makeUIView(context: Context) -> some UIView {
         let arView = ARSCNView(frame: .zero)
         arView.autoenablesDefaultLighting = true
-        arDelegate.setARView(arView)
+        arDelegate.setARView(arView, activeVesselId: activeVesselId)
         return arView
     }
     
@@ -26,6 +27,6 @@ struct ARViewRepresentable: UIViewRepresentable {
 struct ARViewRepresentable_Previews: PreviewProvider {
     
     static var previews: some View {
-        ARViewRepresentable(arDelegate: ARDelegate(loader: LocalVesselLoader()))
+        ARViewRepresentable(arDelegate: ARDelegate(loader: LocalVesselLoader()), activeVesselId: UUID())
     }
 }

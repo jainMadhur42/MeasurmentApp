@@ -16,7 +16,7 @@ struct VesselList: View {
         
         List(vessels, id: \.id) { vessel in
             NavigationLink(vessel.vesselName) {
-                MeasurmentList(vesselLoader: CoreDataVesselLoader())
+                MeasurmentList(vesselLoader: CoreDataVesselLoader(), vesselId: vessel.id)
             }
         }
         .onAppear() {

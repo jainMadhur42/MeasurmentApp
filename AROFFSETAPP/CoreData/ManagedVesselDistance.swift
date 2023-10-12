@@ -18,13 +18,15 @@ class ManagedDistance: NSManagedObject {
     @NSManaged var z2: Float
     @NSManaged var distance: Float
     @NSManaged var date: Date
+    @NSManaged var vessel: ManagedVesselInfo
 }
 
 extension ManagedDistance {
     
-    static func fetch(in context: NSManagedObjectContext) throws -> [ManagedDistance] {
+    static func fetch(for vesselId: UUID, in context: NSManagedObjectContext) throws -> [ManagedDistance] {
         
         let request = NSFetchRequest<ManagedDistance>(entityName: entity().name!)
+        request.predicate = NSPredicate(format: "vessel.id == %@", vesselId as CVarArg)
         return try context.fetch(request)
     }
     
@@ -38,6 +40,7 @@ extension ManagedDistance {
         self.z2 = localVesselDistance.z2
         self.date = localVesselDistance.date
         self.distance = localVesselDistance.distance
+        self.vessel = try ManagedVesselInfo.fetch(in: context).first!
         try context.save()
     }
 }
