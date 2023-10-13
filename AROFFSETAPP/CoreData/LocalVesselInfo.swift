@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct LocalVesselInfo: Hashable {
+struct LocalVesselInfo: Hashable, Identifiable {
     
     var id: UUID
     var contactEmail: String

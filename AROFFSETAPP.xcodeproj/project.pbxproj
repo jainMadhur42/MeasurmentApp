@@ -36,6 +36,7 @@
 		E0C7F9612AD670E8000C8505 /* ManagedVesselDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F9602AD670E8000C8505 /* ManagedVesselDistance.swift */; };
 		E0C7F9632AD676F2000C8505 /* LocalVesselLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F9622AD676F2000C8505 /* LocalVesselLoader.swift */; };
 		E0C7F96D2AD7C99E000C8505 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F96C2AD7C99E000C8505 /* Constants.swift */; };
+		E0C7F9CC2AD835B3000C8505 /* VesselSelctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F9CB2AD835B3000C8505 /* VesselSelctionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		E0C7F9602AD670E8000C8505 /* ManagedVesselDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedVesselDistance.swift; sourceTree = "<group>"; };
 		E0C7F9622AD676F2000C8505 /* LocalVesselLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalVesselLoader.swift; sourceTree = "<group>"; };
 		E0C7F96C2AD7C99E000C8505 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E0C7F9CB2AD835B3000C8505 /* VesselSelctionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VesselSelctionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 				7D0300C22AAFB29C0098500A /* Preview Content */,
 				E0C7F9622AD676F2000C8505 /* LocalVesselLoader.swift */,
 				E0C7F96C2AD7C99E000C8505 /* Constants.swift */,
+				E0C7F9CB2AD835B3000C8505 /* VesselSelctionView.swift */,
 			);
 			path = AROFFSETAPP;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				E0C7F9472AD522EA000C8505 /* MeasurmentListItem.swift in Sources */,
 				7D7537C82ACCC7AB0027E891 /* Service.swift in Sources */,
 				E0C7F95B2AD66F51000C8505 /* LocalVesselInfo.swift in Sources */,
+				E0C7F9CC2AD835B3000C8505 /* VesselSelctionView.swift in Sources */,
 				7D5F06232AB283960004E9E8 /* MetaData.swift in Sources */,
 				E0C7F9542AD66BE5000C8505 /* VesselStore.xcdatamodeld in Sources */,
 				E0C7F96D2AD7C99E000C8505 /* Constants.swift in Sources */,
