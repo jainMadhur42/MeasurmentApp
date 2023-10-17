@@ -13,7 +13,7 @@ struct NewMeasurement: View {
     var body: some View {
       //  NavigationView{
             ZStack{
-                ThemeColor.backGround.theme.ignoresSafeArea(.all)
+                ThemeColor.backGround.color.ignoresSafeArea(.all)
                 VStack{
                     Text("New Measurement Notice")
                         .font(.title).fontWeight(.bold).foregroundColor(.white).multilineTextAlignment(.center)
@@ -30,7 +30,7 @@ struct NewMeasurement: View {
                     Button(action: openWeb) {
                                 Text("Logger Install Resources")
                                     .padding()
-                                    .background(Color.green)
+                                    .background(ThemeColor.tint.color)
                                     .font(.title)
                                     .foregroundColor(.black)
                                     .cornerRadius(10).padding(20)
@@ -41,7 +41,7 @@ struct NewMeasurement: View {
                         Text("Next")
                             .fontWeight(.bold)
                             .padding()
-                            .background(Color.green)
+                            .background(ThemeColor.tint.color)
                             .foregroundColor(.black)
                             .cornerRadius(10)
                             .padding(20)

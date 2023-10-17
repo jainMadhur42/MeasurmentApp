@@ -26,13 +26,13 @@ struct RectangleButton: View {
                     .truncationMode(.tail)
                     .foregroundColor(.white)
                 Image(systemName: systemImage)
-                    .foregroundColor(.green)
+                    .foregroundColor(ThemeColor.tint.color)
                     .padding(.all)
             }
             .frame(maxWidth: .infinity)
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
-                    .stroke(.green, lineWidth: 2)
+                    .stroke(ThemeColor.tint.color, lineWidth: 2)
             )
         }
         .frame(maxWidth: .infinity, alignment: .leading)

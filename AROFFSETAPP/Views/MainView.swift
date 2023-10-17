@@ -29,7 +29,10 @@ struct MainView: View {
             Group {
                 switch viewState {
                 case .loading:
-                    Text("Loading")
+                    Text("Loading...")
+                        .font(.title)
+                        .foregroundColor(.black)
+                        .padding(.all)
                 case .empty:
                     Button {
                         addNewVessel.toggle()
@@ -50,11 +53,16 @@ struct MainView: View {
                         activeVesselInfo = uuid
                         self.vessels = mapSelection(vessels: self.vessels)
                     })
+                    .padding(.top)
+                    .background(ThemeColor.backGround.color)
                 case .error(let error):
                     Text("Error occured \(error.localizedDescription)")
                 }
             }
-            .navigationTitle("CSMT")
+            .navigationTitle(
+                Text("CSMT")
+                
+            )
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
@@ -62,7 +70,7 @@ struct MainView: View {
                     } label: {
                         Image(systemName: "camera.circle")
                             .renderingMode(.template)
-                            .foregroundColor(.green)
+                            .foregroundColor(ThemeColor.backGround.color)
                     }
                 }
                 ToolbarItem {
@@ -71,7 +79,7 @@ struct MainView: View {
                     } label: {
                         Image(systemName: "plus.circle")
                             .renderingMode(.template)
-                            .foregroundColor(.green)
+                            .foregroundColor(ThemeColor.backGround.color)
                     }
                 }
             }
@@ -85,7 +93,7 @@ struct MainView: View {
                                     refresh()
                                 } label: {
                                     Text("Save")
-                                        .foregroundColor(isSaveButtonEnable ? .green : .gray)
+                                        .foregroundColor(isSaveButtonEnable ? ThemeColor.backGround.color : .gray)
                                 }
                                 .disabled(!isSaveButtonEnable)
 
@@ -95,14 +103,19 @@ struct MainView: View {
                                     addNewVessel.toggle()
                                 } label: {
                                     Text("Cancel")
-                                        .foregroundColor(.green)
+                                        .foregroundColor(ThemeColor.backGround.color)
                                 }
                             })
                         }
                 }
             }
         }
+        .background(ThemeColor.tint.color)
         .onAppear() {
+            
+            Theme.navigationBarColors(background: ThemeColor.tint.uiColor)
+            
+            Theme.tableViewTheme()
             refresh()
         }
     }

@@ -29,13 +29,13 @@ struct VesselListItemView: View {
                 Spacer()
                 Image(systemName: "checkmark.circle")
                     .opacity(vessel.isSelected ? 1.0 : 0.0)
-                    .foregroundColor(.green)
+                    .foregroundColor(ThemeColor.tint.color)
                     .padding(.all)
             }
             .frame(maxWidth: .infinity)
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
-                    .stroke(.green, lineWidth: 2)
+                    .stroke(ThemeColor.tint.color, lineWidth: 2)
             )
         }
         .frame(maxWidth: .infinity, alignment: .leading)

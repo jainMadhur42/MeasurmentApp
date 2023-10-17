@@ -16,7 +16,7 @@ struct SplashView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .background(ThemeColor.backGround.theme)
+                .background(ThemeColor.backGround.color)
                 .ignoresSafeArea(.all)
             if isActive {
                 ZStack {

@@ -18,7 +18,7 @@ struct VesselList: View {
             HStack {
                 Image(systemName: "checkmark.circle")
                     .opacity(vessel.isSelected ? 1.0 : 0.0)
-                    .foregroundColor(.green)
+                    .foregroundColor(ThemeColor.tint.color)
                 
                 NavigationLink {
                     MeasurmentList(vesselLoader: CoreDataVesselLoader(), vesselId: vessel.id)
@@ -30,9 +30,10 @@ struct VesselList: View {
                 Button("Mark as active") {
                     markAsSelected(vessel.id.uuidString)
                 }
-                .tint(.green)
+                .tint(ThemeColor.tint.color)
             }
         }
+        
     }
 }
 
