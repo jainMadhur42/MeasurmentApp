@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7D0300BD2AAFB29B0098500A /* AROFFSETAPPApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0300BC2AAFB29B0098500A /* AROFFSETAPPApp.swift */; };
-		7D0300BF2AAFB29B0098500A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0300BE2AAFB29B0098500A /* ContentView.swift */; };
 		7D0300C12AAFB29C0098500A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D0300C02AAFB29C0098500A /* Assets.xcassets */; };
 		7D0300C42AAFB29C0098500A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D0300C32AAFB29C0098500A /* Preview Assets.xcassets */; };
 		7D0300CE2AAFB29C0098500A /* AROFFSETAPPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0300CD2AAFB29C0098500A /* AROFFSETAPPTests.swift */; };
@@ -63,7 +62,6 @@
 /* Begin PBXFileReference section */
 		7D0300B92AAFB29B0098500A /* AROFFSETAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AROFFSETAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D0300BC2AAFB29B0098500A /* AROFFSETAPPApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AROFFSETAPPApp.swift; sourceTree = "<group>"; };
-		7D0300BE2AAFB29B0098500A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7D0300C02AAFB29C0098500A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D0300C32AAFB29C0098500A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7D0300C92AAFB29C0098500A /* AROFFSETAPPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AROFFSETAPPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -205,7 +203,6 @@
 			isa = PBXGroup;
 			children = (
 				E0C7F9D42ADBB90A000C8505 /* SplashView.swift */,
-				7D0300BE2AAFB29B0098500A /* ContentView.swift */,
 				7DBE1DE52AB3C60A00E32091 /* HowTo.swift */,
 				7D5F06222AB283960004E9E8 /* AddVesselInfoView.swift */,
 				7D5F06202AB18E1D0004E9E8 /* NewMeasurement.swift */,
@@ -408,7 +405,6 @@
 				E0C7F9592AD66F0A000C8505 /* CoreDataHelper.swift in Sources */,
 				7D5F06212AB18E1D0004E9E8 /* NewMeasurement.swift in Sources */,
 				E0C7F95D2AD66FFE000C8505 /* LocalVesselDistance.swift in Sources */,
-				7D0300BF2AAFB29B0098500A /* ContentView.swift in Sources */,
 				7D0300BD2AAFB29B0098500A /* AROFFSETAPPApp.swift in Sources */,
 				7DBE1DE62AB3C60A00E32091 /* HowTo.swift in Sources */,
 				7D5F061F2AB18E0E0004E9E8 /* LoadMeasurement.swift in Sources */,
@@ -595,7 +591,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "Allow Camera for full functionality";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -627,7 +623,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "Allow Camera for full functionality";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

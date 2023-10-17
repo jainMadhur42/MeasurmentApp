@@ -7,34 +7,116 @@
 
 import SwiftUI
 
+enum ViewState {
+    case loading
+    case empty
+    case completed
+    case error(Error)
+}
+
 struct MainView: View {
     
     var vesselInfoLoader: VesselInfoLoader
     var vesselDistanceLoader: VesselDistanceLoader
+    @State private var addNewVessel = false
+    @State var viewState: ViewState = .empty
+    @State var isSaveButtonEnable: Bool = false
     @State private var vessels = [LocalVesselInfo]()
     @AppStorage(Constants.activeVessel) private var activeVesselInfo = UUID().uuidString
     
     var body: some View {
-        
-        ContentView(vessels: $vessels, markAsSelected: { uuid in
-            activeVesselInfo = uuid
-            self.vessels = mapSelection(vessels: self.vessels)
-        }, insert: insert, injectedView: {
-            ARView(activeVesselId: UUID(uuidString: activeVesselInfo)!)
-        })
+        NavigationView {
+            Group {
+                switch viewState {
+                case .loading:
+                    Text("Loading")
+                case .empty:
+                    Button {
+                        addNewVessel.toggle()
+                    } label: {
+                        VStack {
+                            Text("No Vessel Present Click Here to Add New vessel")
+                                .font(.title)
+                                .foregroundColor(.black)
+                                .padding(.all)
+                            Image(systemName: "plus.circle")
+                                .renderingMode(.template)
+                                .foregroundColor(Color.ui.theme)
+                        }
+                    }
+                case .completed:
+                    VesselList(vessels: $vessels
+                               , markAsSelected: { uuid in
+                        activeVesselInfo = uuid
+                        self.vessels = mapSelection(vessels: self.vessels)
+                    })
+                case .error(let error):
+                    Text("Error occured \(error.localizedDescription)")
+                }
+            }
+            .navigationTitle("CSMT")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        ARView(activeVesselId: UUID(uuidString: activeVesselInfo)!)
+                    } label: {
+                        Image(systemName: "camera.circle")
+                            .renderingMode(.template)
+                            .foregroundColor(.green)
+                    }
+                }
+                ToolbarItem {
+                    Button {
+                        addNewVessel.toggle()
+                    } label: {
+                        Image(systemName: "plus.circle")
+                            .renderingMode(.template)
+                            .foregroundColor(.green)
+                    }
+                }
+            }
+            .sheet(isPresented: $addNewVessel) {
+                NavigationView {
+                    AddVesselInfoView(enableSaveButton: $isSaveButtonEnable, insert: insert)
+                        .toolbar {
+                            ToolbarItem(placement: .confirmationAction, content: {
+                                Button {
+                                    addNewVessel.toggle()
+                                    refresh()
+                                } label: {
+                                    Text("Save")
+                                        .foregroundColor(isSaveButtonEnable ? .green : .gray)
+                                }
+                                .disabled(!isSaveButtonEnable)
+
+                            })
+                            ToolbarItem(placement: .cancellationAction, content: {
+                                Button {
+                                    addNewVessel.toggle()
+                                } label: {
+                                    Text("Cancel")
+                                        .foregroundColor(.green)
+                                }
+                            })
+                        }
+                }
+            }
+        }
         .onAppear() {
             refresh()
         }
     }
     
     private func refresh() {
+        viewState = .loading
         vesselInfoLoader.retrieve { result in
             switch result {
             case .success(let vessels):
                 self.vessels = mapSelection(vessels: vessels)
             case .failure(let error):
-                print(error)
+                self.viewState = .error(error)
             }
+            self.viewState = vessels.isEmpty ? .empty : .completed
         }
     }
     

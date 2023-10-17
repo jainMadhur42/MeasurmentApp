@@ -8,6 +8,7 @@ struct AddVesselInfoView: View {
         || textFieldValidatorEmail(email)
         || isFieldEmpty(organisation) ? false : true
     }
+    @Binding var enableSaveButton: Bool
     @State private var errorMessage: String = ""
     @State private var vesselName: String = ""
     @State private var name: String = ""
@@ -21,77 +22,55 @@ struct AddVesselInfoView: View {
     var insert: (LocalVesselInfo) -> Void
 
     var body: some View {
-        ZStack {
-            Rectangle()
-                .fill(ThemeColor.backGround.theme)
-                .accentColor(ThemeColor.backGround.theme)
-                .ignoresSafeArea(.all)
-            VStack(spacing: 24) {
-                Text("Add New Vessel")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.leading)
-                    .padding(.bottom, 80)
-                    
+        Form {
+            Section {
+                
                 TextField("Vessel Name or Unique ID"
-                            , text: $vesselName
-                            , onEditingChanged: { _ in
-                                errorMessage = isFieldEmpty(vesselName)
-                                        ? "Vessel Name is empty" : ""
-                            })
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                          , text: $vesselName
+                          , onEditingChanged: { _ in
+                    errorMessage = isFieldEmpty(vesselName)
+                    ? "Vessel Name is empty" : ""
+                })
                 .autocorrectionDisabled(true)
                 
                 TextField("Contact Name"
                           , text: $name
                           , onEditingChanged: { _ in
-                                errorMessage = isFieldEmpty(name)
-                                        ? "Contact Name is empty" : ""
+                    errorMessage = isFieldEmpty(name)
+                    ? "Contact Name is empty" : ""
                 })
-                .textFieldStyle(RoundedBorderTextFieldStyle())
                 .keyboardType(.emailAddress)
                 .autocorrectionDisabled(true)
                 
                 TextField("Contact Email"
                           , text: $email
                           , onEditingChanged: { _ in
-                                errorMessage  = textFieldValidatorEmail(email)
+                    errorMessage  = textFieldValidatorEmail(email)
                     ? "Email Format is wrong" : ""
                 })
-                .textFieldStyle(RoundedBorderTextFieldStyle())
                 .keyboardType(.emailAddress)
                 .autocorrectionDisabled(true)
                 
                 TextField("Trusted Node Organization/Name", text: $organisation, onEditingChanged: { _ in
                     errorMessage = isFieldEmpty(organisation)
-                            ? "Organisation is empty" : ""
+                    ? "Organisation is empty" : ""
                 })
-                .textFieldStyle(RoundedBorderTextFieldStyle())
                 .keyboardType(.namePhonePad)
                 .autocorrectionDisabled(true)
 
-                Text(isValidationSuccessful ? "" : errorMessage)
-                    .foregroundColor(.white)
-                
-                VStack(alignment: .center) {
-                    Button {
-                        saveDetails()
-                    } label: {
-                        Text("Next")
-                            .fontWeight(.bold)
-                            .padding()
-                            .background(Color.green)
-                            .foregroundColor(isValidationSuccessful ? .black : .gray)
-                            .cornerRadius(10)
-                    }
-                    .disabled(!isValidationSuccessful)
-                }
             }
-            .padding(.top)
+            header: {
+                Text("Add New Vessel")
+                    .multilineTextAlignment(.leading)
+                    .font(.headline)
+            } footer: {
+                Text(isValidationSuccessful ? "" : errorMessage)
+                    .foregroundColor(.red)
+            }
         }
-        .background(ThemeColor.backGround.theme)
-        .ignoresSafeArea(.all)
+        .onChange(of: isValidationSuccessful) { newValue in
+            enableSaveButton = newValue
+        }
     }
     
     private func saveDetails() {
@@ -115,7 +94,8 @@ struct AddVesselInfoView: View {
 
 struct MetaData_Previews: PreviewProvider {
     static var previews: some View {
-        AddVesselInfoView(insert: { _ in
+        AddVesselInfoView(enableSaveButton: .constant(true)
+                          , insert: { _ in
             print("Insert")
         })
     }

@@ -9,24 +9,28 @@ import SwiftUI
 
 struct VesselList: View {
     
-    var vesselInfoLoader: VesselInfoLoader
-    @State private var vessels = [LocalVesselInfo]()
+    @Binding var vessels: [LocalVesselInfo]
+    var markAsSelected: (String) -> Void
     
     var body: some View {
         
         List(vessels, id: \.id) { vessel in
-            NavigationLink(vessel.vesselName) {
-                MeasurmentList(vesselLoader: CoreDataVesselLoader(), vesselId: vessel.id)
-            }
-        }
-        .onAppear() {
-            vesselInfoLoader.retrieve { result in
-                switch result {
-                case .success(let vessels):
-                    self.vessels = vessels
-                case .failure(let error):
-                    print(error)
+            HStack {
+                Image(systemName: "checkmark.circle")
+                    .opacity(vessel.isSelected ? 1.0 : 0.0)
+                    .foregroundColor(.green)
+                
+                NavigationLink {
+                    MeasurmentList(vesselLoader: CoreDataVesselLoader(), vesselId: vessel.id)
+                } label: {
+                    Text(vessel.vesselName)
                 }
+            }
+            .swipeActions {
+                Button("Mark as active") {
+                    markAsSelected(vessel.id.uuidString)
+                }
+                .tint(.green)
             }
         }
     }
@@ -34,6 +38,8 @@ struct VesselList: View {
 
 struct VesselList_Previews: PreviewProvider {
     static var previews: some View {
-        VesselList(vesselInfoLoader: LocalVesselLoader())
+        VesselList(vessels: .constant(LocalVesselLoader.vessels), markAsSelected: {
+            print($0)
+        })
     }
 }
