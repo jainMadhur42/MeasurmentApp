@@ -12,7 +12,7 @@ struct AROFFSETAPPApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(vesselInfoLoader: CoreDataVesselLoader())
+            SplashView(vesselDistanceLoader: CoreDataVesselLoader(), vesselInfoLoader: CoreDataVesselLoader())
         }
     }
 }

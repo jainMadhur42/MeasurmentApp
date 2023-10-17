@@ -12,7 +12,7 @@ struct HowTo: View {
     
     var body: some View {
         ZStack{
-            Color(myColor).ignoresSafeArea(.all)
+            ThemeColor.backGround.theme.ignoresSafeArea(.all)
             VStack{
                 Text("New Measurement How-To") .font(.title).fontWeight(.bold).foregroundColor(.white).multilineTextAlignment(.center)
                 Spacer()
@@ -33,7 +33,7 @@ struct HowTo: View {
                         .cornerRadius(10)
                         .padding(20)
 
-                    NavigationLink(destination: ARView(), isActive: $navigateToFirstScreen) {
+                    NavigationLink(destination: ARView(activeVesselId: UUID()), isActive: $navigateToFirstScreen) {
                         EmptyView()
                     }
                 }

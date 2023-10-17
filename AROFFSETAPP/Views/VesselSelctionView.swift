@@ -10,15 +10,13 @@ import SwiftUI
 struct VesselListItemView: View {
     
     var vessel: LocalVesselInfo
-    
-    @AppStorage(Constants.activeVessel) private var activeVesselInfo = UUID().uuidString
-    var isSelected: Bool {
-        activeVesselInfo == vessel.id.uuidString
-    }
+    var markAsSelected: (String) -> Void
+    @State var showVesselDistance = false
+    var detailAction: (UUID) -> Void
     
     var body: some View {
         Button {
-            activeVesselInfo = vessel.id.uuidString
+            markAsSelected(vessel.id.uuidString)
         } label: {
             HStack {
                 Text(vessel.vesselName)
@@ -29,7 +27,8 @@ struct VesselListItemView: View {
                     .truncationMode(.tail)
                     .foregroundColor(.white)
                 Spacer()
-                Image(systemName: isSelected ? "checkmark.circle" : "circle")
+                Image(systemName: "checkmark.circle")
+                    .opacity(vessel.isSelected ? 1.0 : 0.0)
                     .foregroundColor(.green)
                     .padding(.all)
             }
@@ -45,23 +44,18 @@ struct VesselListItemView: View {
     }
 }
 
-struct VesselSelectionView<Content: View>: View {
+struct VesselSelectionView: View {
     
     @Binding var vessels: [LocalVesselInfo]
-    @ViewBuilder var addNewVesselView: () -> Content
+    var markAsSelected: (String) -> Void
+    var detailAction: (UUID) -> Void
     
     var body: some View {
         ScrollView {
-            
-            addNewVesselView()
-            
             ForEach(vessels) { vessel in
-                VesselListItemView(vessel: vessel)
+                VesselListItemView(vessel: vessel, markAsSelected: markAsSelected, detailAction: detailAction)
             }
         }
-        .frame(maxWidth: .infinity)
-        .ignoresSafeArea(.all)
-        .background(Color(myColor))
     }
     
     
@@ -69,9 +63,11 @@ struct VesselSelectionView<Content: View>: View {
 
 struct VesselSelctionView_Previews: PreviewProvider {
     static var previews: some View {
-        VesselSelectionView(vessels:
-                .constant( LocalVesselLoader.vessels), addNewVesselView: {
-                    Text("Hello")
-                })
+        VesselSelectionView(vessels: .constant(LocalVesselLoader.vessels), markAsSelected: { uuid in
+            print("Mark As selected \(uuid)")
+        }, detailAction: {
+            print("Hello \($0)")
+        })
+               
     }
 }

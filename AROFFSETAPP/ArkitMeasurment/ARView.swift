@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ARView: View {
     
-    @AppStorage(Constants.activeVessel) private var activeVesselInfo = UUID().uuidString
+    var activeVesselId: UUID
     @ObservedObject var arDelegate = ARDelegate(loader: CoreDataVesselLoader())
      
     var body: some View {
         ZStack {
             ARViewRepresentable(arDelegate: arDelegate
-                                , activeVesselId: UUID(uuidString: activeVesselInfo)!)
+                                , activeVesselId: activeVesselId)
             VStack {
                 Spacer()
                 Text(arDelegate.message)
@@ -30,6 +30,6 @@ struct ARView: View {
 
 struct ARView_Previews: PreviewProvider {
     static var previews: some View {
-        ARView()
+        ARView(activeVesselId: UUID())
     }
 }

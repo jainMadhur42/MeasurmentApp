@@ -13,7 +13,7 @@ struct NewMeasurement: View {
     var body: some View {
       //  NavigationView{
             ZStack{
-                Color(myColor).ignoresSafeArea(.all)
+                ThemeColor.backGround.theme.ignoresSafeArea(.all)
                 VStack{
                     Text("New Measurement Notice")
                         .font(.title).fontWeight(.bold).foregroundColor(.white).multilineTextAlignment(.center)
@@ -46,12 +46,12 @@ struct NewMeasurement: View {
                             .cornerRadius(10)
                             .padding(20)
                    
-                        
-                    NavigationLink(destination:
-                                    MetaData(vesselInfoLoader: CoreDataVesselLoader())
-                                   , isActive: $navigateToFirstScreen) {
-                         EmptyView()
-                         }
+//                        
+//                    NavigationLink(destination:
+//                                    AddVesselInfoView(vesselInfoLoader: CoreDataVesselLoader())
+//                                   , isActive: $navigateToFirstScreen) {
+//                         EmptyView()
+//                         }
                     }
                 }
                 

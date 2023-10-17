@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct MetaData: View {
+struct AddVesselInfoView: View {
     
     private var isValidationSuccessful: Bool {
         isFieldEmpty(vesselName)
@@ -13,27 +13,27 @@ struct MetaData: View {
     @State private var name: String = ""
     @State private var email: String = ""
     @State private var organisation: String = ""
-    @AppStorage(Constants.activeVessel) private var activeVesselInfo = UUID().uuidString
+    
     
     private func isFieldEmpty(_ field: String) -> Bool {
         return field.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
-   
-    @State private var navigateToFirstScreen = false
-    var vesselInfoLoader: VesselInfoLoader
-    
+    var insert: (LocalVesselInfo) -> Void
+
     var body: some View {
         ZStack {
-            Color(myColor)
+            Rectangle()
+                .fill(ThemeColor.backGround.theme)
+                .accentColor(ThemeColor.backGround.theme)
                 .ignoresSafeArea(.all)
-            VStack{
-                Text("New Measurement Metadata")
+            VStack(spacing: 24) {
+                Text("Add New Vessel")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                    .padding(.bottom,80)
-                
+                    .multilineTextAlignment(.leading)
+                    .padding(.bottom, 80)
+                    
                 TextField("Vessel Name or Unique ID"
                             , text: $vesselName
                             , onEditingChanged: { _ in
@@ -41,7 +41,6 @@ struct MetaData: View {
                                         ? "Vessel Name is empty" : ""
                             })
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
                 .autocorrectionDisabled(true)
                 
                 TextField("Contact Name"
@@ -51,7 +50,6 @@ struct MetaData: View {
                                         ? "Contact Name is empty" : ""
                 })
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
                 .keyboardType(.emailAddress)
                 .autocorrectionDisabled(true)
                 
@@ -62,7 +60,6 @@ struct MetaData: View {
                     ? "Email Format is wrong" : ""
                 })
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
                 .keyboardType(.emailAddress)
                 .autocorrectionDisabled(true)
                 
@@ -71,48 +68,39 @@ struct MetaData: View {
                             ? "Organisation is empty" : ""
                 })
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
                 .keyboardType(.namePhonePad)
                 .autocorrectionDisabled(true)
 
                 Text(isValidationSuccessful ? "" : errorMessage)
                     .foregroundColor(.white)
-                Button {
-                    saveDetails()
-                    self.navigateToFirstScreen.toggle()
-                } label: {
-                    Text("Next")
-                        .fontWeight(.bold)
-                        .padding()
-                        .background(Color.green)
-                        .foregroundColor(isValidationSuccessful ? .black : .gray)
-                        .cornerRadius(10)
-                        .padding(20)
-                }
-                .disabled(!isValidationSuccessful)
-            }
-            NavigationLink(destination: ARView(), isActive: $navigateToFirstScreen) {
                 
+                VStack(alignment: .center) {
+                    Button {
+                        saveDetails()
+                    } label: {
+                        Text("Next")
+                            .fontWeight(.bold)
+                            .padding()
+                            .background(Color.green)
+                            .foregroundColor(isValidationSuccessful ? .black : .gray)
+                            .cornerRadius(10)
+                    }
+                    .disabled(!isValidationSuccessful)
+                }
             }
+            .padding(.top)
         }
+        .background(ThemeColor.backGround.theme)
+        .ignoresSafeArea(.all)
     }
     
     private func saveDetails() {
-        print(activeVesselInfo.description)
         let localVesselInfo = LocalVesselInfo(id: UUID()
                                                , contactEmail: email
                                                , contactPersonName: name
                                                , vesselName: vesselName
                                                , organisation: organisation)
-        vesselInfoLoader.insert(vesselInfo: localVesselInfo, completion: { result in
-            switch result {
-            case .success(let uuid):
-                activeVesselInfo = uuid.uuidString
-            case .failure(let error):
-                print("error Occurred \(error)")
-            }
-
-        })
+        self.insert(localVesselInfo)
     }
     
     private func textFieldValidatorEmail(_ string: String) -> Bool {
@@ -127,7 +115,9 @@ struct MetaData: View {
 
 struct MetaData_Previews: PreviewProvider {
     static var previews: some View {
-        MetaData(vesselInfoLoader: LocalVesselLoader())
+        AddVesselInfoView(insert: { _ in
+            print("Insert")
+        })
     }
 }
 

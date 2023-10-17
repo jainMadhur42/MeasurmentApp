@@ -14,4 +14,5 @@ struct LocalVesselInfo: Hashable, Identifiable {
     var contactPersonName: String
     var vesselName: String
     var organisation: String
+    var isSelected: Bool = false
 }

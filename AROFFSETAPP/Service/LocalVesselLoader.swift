@@ -51,7 +51,11 @@ extension CoreDataVesselLoader: VesselInfoLoader {
 struct LocalVesselLoader: VesselDistanceLoader {
     
     static var distances = [LocalVesselDistance]()
-    static var vessels = [LocalVesselInfo]()
+    static var vessels: [LocalVesselInfo] = [LocalVesselInfo(id: UUID()
+                                                             , contactEmail: "madhur.jain@gmail.com"
+                                                             , contactPersonName: "Madhur Jain"
+                                                             , vesselName: "Madhur"
+                                                             , organisation: "Madhur")]
     
     func insert(vesselDistance: LocalVesselDistance) {
         LocalVesselLoader.distances.append(vesselDistance)
