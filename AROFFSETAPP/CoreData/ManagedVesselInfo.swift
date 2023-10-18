@@ -20,9 +20,12 @@ class ManagedVesselInfo: NSManagedObject {
 
 extension ManagedVesselInfo {
     
-    static func fetch(in context: NSManagedObjectContext) throws -> [ManagedVesselInfo] {
+    static func fetch(vesselId: UUID? = nil,  in context: NSManagedObjectContext) throws -> [ManagedVesselInfo] {
         
         let request = NSFetchRequest<ManagedVesselInfo>(entityName: entity().name!)
+        if let vesselId = vesselId {
+            request.predicate = NSPredicate(format: "id == %@", vesselId as CVarArg)
+        }
         return try context.fetch(request)
     }
     

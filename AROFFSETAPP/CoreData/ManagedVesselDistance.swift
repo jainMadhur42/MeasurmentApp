@@ -31,7 +31,7 @@ extension ManagedDistance {
     }
     
     func update(with localVesselDistance: LocalVesselDistance, in context: NSManagedObjectContext) throws {
-        self.id =  localVesselDistance.id
+        self.id = UUID()
         self.x1 = localVesselDistance.x1
         self.x2 = localVesselDistance.x2
         self.y1 = localVesselDistance.y1
@@ -40,7 +40,7 @@ extension ManagedDistance {
         self.z2 = localVesselDistance.z2
         self.date = localVesselDistance.date
         self.distance = localVesselDistance.distance
-        self.vessel = try ManagedVesselInfo.fetch(in: context).first!
+        self.vessel = try ManagedVesselInfo.fetch(vesselId: localVesselDistance.vesselId, in: context).first!
         try context.save()
     }
 }
