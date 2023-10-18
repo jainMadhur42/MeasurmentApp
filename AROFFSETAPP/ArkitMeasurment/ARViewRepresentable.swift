@@ -9,13 +9,14 @@ import ARKit
 import SwiftUI
 
 struct ARViewRepresentable: UIViewRepresentable {
+    
     let arDelegate:ARDelegate
-    var activeVesselId: UUID
     
     func makeUIView(context: Context) -> some UIView {
         let arView = ARSCNView(frame: .zero)
         arView.autoenablesDefaultLighting = true
-        arDelegate.setARView(arView, activeVesselId: activeVesselId)
+        arView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+        arDelegate.setARView(arView)
         return arView
     }
     
@@ -27,6 +28,6 @@ struct ARViewRepresentable: UIViewRepresentable {
 struct ARViewRepresentable_Previews: PreviewProvider {
     
     static var previews: some View {
-        ARViewRepresentable(arDelegate: ARDelegate(loader: LocalVesselLoader()), activeVesselId: UUID())
+        ARViewRepresentable(arDelegate: ARDelegate(activeVesselId: UUID().uuidString))
     }
 }

@@ -9,27 +9,76 @@ import SwiftUI
 
 struct ARView: View {
     
-    var activeVesselId: UUID
-    @ObservedObject var arDelegate = ARDelegate(loader: CoreDataVesselLoader())
-     
+    @Binding var activeVesselId: String
+    @ObservedObject var arDelegate: ARDelegate
+    var loader: VesselDistanceLoader
+
     var body: some View {
         ZStack {
-            ARViewRepresentable(arDelegate: arDelegate
-                                , activeVesselId: activeVesselId)
-            VStack {
-                Spacer()
-                Text(arDelegate.message)
-                    .foregroundColor(Color.primary)
-                    .frame(maxWidth: .infinity)
-                    .padding(.bottom, 20)
-                    .background(Color.secondary)
+            ARViewRepresentable(arDelegate: arDelegate)
+            Group {
+                if !arDelegate.presentMeasurtment {
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Text(arDelegate.message)
+                                .foregroundColor(Color.primary)
+                                .frame(maxWidth: .infinity)
+                                .padding(.all)
+                            Button {
+                                arDelegate.presentMeasurtment.toggle()
+                            } label: {
+                                Image(systemName: arDelegate.presentMeasurtment ? "chevron.down.circle" : "chevron.up.circle")
+                                
+                            }
+                            .padding(.all)
+                            
+                        }
+                        .background(Color.secondary)
+                        
+                    }
+                } else {
+                    VStack {
+                        Spacer()
+                        
+                        HStack {
+                            Text(arDelegate.message)
+                                .foregroundColor(Color.primary)
+                                .frame(maxWidth: .infinity)
+                                .padding(.bottom, 20)
+                                
+                            Button {
+                                arDelegate.presentMeasurtment.toggle()
+                            } label: {
+                                Image(systemName: arDelegate.presentMeasurtment ? "chevron.down.circle" : "chevron.up.circle")
+                                
+                            }
+                            .padding(.all)
+                            
+                            Button {
+                                arDelegate.presentMeasurtment.toggle()
+                                print(arDelegate.distance)
+                                loader.insert(vesselDistance: arDelegate.distance)
+                            } label: {
+                                Image(systemName: "square.and.arrow.down")
+                            }
+                            .padding(.all)
+                        }
+                        
+                        .background(Color.secondary)
+                        
+                        MeasurmentListItem(vesselDistance: arDelegate.distance)
+                            .padding([.bottom,.leading,.trailing])
+                    }
+                }
             }
+            .padding(.bottom)
         }.edgesIgnoringSafeArea(.all)
     }
 }
 
-struct ARView_Previews: PreviewProvider {
-    static var previews: some View {
-        ARView(activeVesselId: UUID())
-    }
-}
+//struct ARView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ARView(activeVesselId: UUID())
+//    }
+//}

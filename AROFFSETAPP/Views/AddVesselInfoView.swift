@@ -3,18 +3,15 @@ import SwiftUI
 struct AddVesselInfoView: View {
     
     private var isValidationSuccessful: Bool {
-        isFieldEmpty(vesselName)
-        || isFieldEmpty(name)
-        || textFieldValidatorEmail(email)
-        || isFieldEmpty(organisation) ? false : true
+        isFieldEmpty(vesselInfo.vesselName)
+        || isFieldEmpty(vesselInfo.contactPersonName)
+        || textFieldValidatorEmail(vesselInfo.contactEmail)
+        || isFieldEmpty(vesselInfo.organisation) ? false : true
     }
+    
     @Binding var enableSaveButton: Bool
     @State private var errorMessage: String = ""
-    @State private var vesselName: String = ""
-    @State private var name: String = ""
-    @State private var email: String = ""
-    @State private var organisation: String = ""
-    
+    @Binding var vesselInfo: LocalVesselInfo
     
     private func isFieldEmpty(_ field: String) -> Bool {
         return field.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
@@ -26,33 +23,34 @@ struct AddVesselInfoView: View {
             Section {
                 
                 TextField("Vessel Name or Unique ID"
-                          , text: $vesselName
+                          , text: $vesselInfo.vesselName
                           , onEditingChanged: { _ in
-                    errorMessage = isFieldEmpty(vesselName)
+                    errorMessage = isFieldEmpty(vesselInfo.vesselName)
                     ? "Vessel Name is empty" : ""
                 })
                 .autocorrectionDisabled(true)
                 
                 TextField("Contact Name"
-                          , text: $name
+                          , text: $vesselInfo.contactPersonName
                           , onEditingChanged: { _ in
-                    errorMessage = isFieldEmpty(name)
+                    errorMessage = isFieldEmpty(vesselInfo.contactPersonName)
                     ? "Contact Name is empty" : ""
                 })
                 .keyboardType(.emailAddress)
                 .autocorrectionDisabled(true)
                 
                 TextField("Contact Email"
-                          , text: $email
+                          , text: $vesselInfo.contactEmail
                           , onEditingChanged: { _ in
-                    errorMessage  = textFieldValidatorEmail(email)
+                    errorMessage  = textFieldValidatorEmail(vesselInfo.contactEmail)
                     ? "Email Format is wrong" : ""
                 })
                 .keyboardType(.emailAddress)
                 .autocorrectionDisabled(true)
                 
-                TextField("Trusted Node Organization/Name", text: $organisation, onEditingChanged: { _ in
-                    errorMessage = isFieldEmpty(organisation)
+                TextField("Trusted Node Organization/Name", text: $vesselInfo.organisation
+                          , onEditingChanged: { _ in
+                    errorMessage = isFieldEmpty(vesselInfo.organisation)
                     ? "Organisation is empty" : ""
                 })
                 .keyboardType(.namePhonePad)
@@ -73,15 +71,6 @@ struct AddVesselInfoView: View {
         }
     }
     
-    private func saveDetails() {
-        let localVesselInfo = LocalVesselInfo(id: UUID()
-                                               , contactEmail: email
-                                               , contactPersonName: name
-                                               , vesselName: vesselName
-                                               , organisation: organisation)
-        self.insert(localVesselInfo)
-    }
-    
     private func textFieldValidatorEmail(_ string: String) -> Bool {
             if string.count > 100 {
                 return false
@@ -95,6 +84,7 @@ struct AddVesselInfoView: View {
 struct MetaData_Previews: PreviewProvider {
     static var previews: some View {
         AddVesselInfoView(enableSaveButton: .constant(true)
+                          , vesselInfo: .constant(LocalVesselLoader.vessels[0])
                           , insert: { _ in
             print("Insert")
         })

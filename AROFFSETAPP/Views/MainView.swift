@@ -19,9 +19,14 @@ struct MainView: View {
     var vesselInfoLoader: VesselInfoLoader
     var vesselDistanceLoader: VesselDistanceLoader
     @State private var addNewVessel = false
-    @State var viewState: ViewState = .empty
-    @State var isSaveButtonEnable: Bool = false
+    @State private var viewState: ViewState = .empty
+    @State private var isSaveButtonEnable: Bool = false
     @State private var vessels = [LocalVesselInfo]()
+    @State private var tempVessel = LocalVesselInfo(id: UUID()
+                                            , contactEmail: ""
+                                            , contactPersonName: ""
+                                            , vesselName: ""
+                                            , organisation: "")
     @AppStorage(Constants.activeVessel) private var activeVesselInfo = UUID().uuidString
     
     var body: some View {
@@ -66,7 +71,9 @@ struct MainView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        ARView(activeVesselId: UUID(uuidString: activeVesselInfo)!)
+                        ARView(activeVesselId: $activeVesselInfo
+                               , arDelegate: ARDelegate(activeVesselId: activeVesselInfo)
+                               , loader: vesselDistanceLoader)
                     } label: {
                         Image(systemName: "camera.circle")
                             .renderingMode(.template)
@@ -85,12 +92,20 @@ struct MainView: View {
             }
             .sheet(isPresented: $addNewVessel) {
                 NavigationView {
-                    AddVesselInfoView(enableSaveButton: $isSaveButtonEnable, insert: insert)
+                    AddVesselInfoView(enableSaveButton: $isSaveButtonEnable
+                                      , vesselInfo: $tempVessel
+                                      , insert: insert)
                         .toolbar {
                             ToolbarItem(placement: .confirmationAction, content: {
                                 Button {
+                                    insert(localVesselInfo: tempVessel)
                                     addNewVessel.toggle()
                                     refresh()
+                                    tempVessel = LocalVesselInfo(id: UUID()
+                                                                 , contactEmail: ""
+                                                                 , contactPersonName: ""
+                                                                 , vesselName: ""
+                                                                 , organisation: "")
                                 } label: {
                                     Text("Save")
                                         .foregroundColor(isSaveButtonEnable ? ThemeColor.backGround.color : .gray)

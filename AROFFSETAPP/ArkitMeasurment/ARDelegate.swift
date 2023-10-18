@@ -10,11 +10,21 @@ import ARKit
 import UIKit
 
 class ARDelegate: NSObject, ARSCNViewDelegate, ObservableObject {
-    @Published var message:String = "starting AR"
     
-    func setARView(_ arView: ARSCNView, activeVesselId: UUID) {
+    @Published var presentMeasurtment: Bool = false
+    @Published var message:String = "starting AR"
+    @Published var distance: LocalVesselDistance = LocalVesselDistance(x1: 0.0
+                                                                       , x2: 0.0
+                                                                       , y1: 0.0
+                                                                       , y2: 0.0
+                                                                       , z1: 0.0
+                                                                       , z2: 0.0
+                                                                       , distance: 0.0
+                                                                       , vesselId: UUID())
+    
+    
+    func setARView(_ arView: ARSCNView) {
         self.arView = arView
-        self.activeVesselId = activeVesselId
         
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
@@ -77,11 +87,10 @@ class ARDelegate: NSObject, ARSCNViewDelegate, ObservableObject {
     private var arView: ARSCNView?
     private var circles:[SCNNode] = []
     private var trackedNode:SCNNode?
-    var loader: VesselDistanceLoader
-    var activeVesselId: UUID?
+    @Published var activeVesselId: String
     
-    init(loader: VesselDistanceLoader) {
-        self.loader = loader
+    init(activeVesselId: String) {
+        self.activeVesselId = activeVesselId
     }
     
     private func addCircle(raycastResult: ARRaycastResult) {
@@ -120,18 +129,17 @@ class ARDelegate: NSObject, ARSCNViewDelegate, ObservableObject {
             let distance = GeometryUtils.calculateDistance(firstNode: firstNode, secondNode: secondNode)
             print("distance = \(distance)")
             message = "distance " + String(format: "%.2f cm", distance)
-            
-            guard let activeVesselId = self.activeVesselId else { return }
-            
-            let localVesselDistance = LocalVesselDistance(x1: firstNode.position.x
+            presentMeasurtment.toggle()
+           
+            self.distance = LocalVesselDistance(x1: firstNode.position.x
                                                           , x2: secondNode.position.x
                                                           , y1: firstNode.position.y
                                                           , y2: secondNode.position.y
                                                           , z1: firstNode.position.z
                                                           , z2: secondNode.position.z
                                                           , distance: distance
-                                                          , vesselId: activeVesselId)
-            loader.insert(vesselDistance: localVesselDistance)
+                                                          , vesselId: UUID(uuidString:  activeVesselId)!)
+
         }
         else {
             message = "add second point"
@@ -149,6 +157,7 @@ class ARDelegate: NSObject, ARSCNViewDelegate, ObservableObject {
     
     func removeCircle(node:SCNNode) {
         node.removeFromParentNode()
+        presentMeasurtment.toggle()
         circles.removeAll(where: { $0 == node })
     }
 }

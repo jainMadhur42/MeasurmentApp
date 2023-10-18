@@ -33,9 +33,9 @@ struct HowTo: View {
                         .cornerRadius(10)
                         .padding(20)
 
-                    NavigationLink(destination: ARView(activeVesselId: UUID()), isActive: $navigateToFirstScreen) {
-                        EmptyView()
-                    }
+//                    NavigationLink(destination: ARView(activeVesselId: UUID()), isActive: $navigateToFirstScreen) {
+//                        EmptyView()
+//                    }
                 }
             }
         }
