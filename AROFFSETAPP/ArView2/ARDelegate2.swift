@@ -11,13 +11,22 @@ import UIKit
 
 class ARDelegate2: NSObject, ARSCNViewDelegate, ObservableObject {
     
-    @Published var presentMeasurtment: Bool = false
+    @Published var enableSave = false
+    @Published var presentMeasurment: Bool = false
     @Published var message:String = "starting AR"
     @Published var x: String = "x: 0.0"
     @Published var y: String = "y: 0.0"
     @Published var z: String = "z: 0.0"
-    @Published var distance: String = "Distance: 0.0"
-    
+    @Published var formattedDistance: String = "Distance: 0.0"
+    var distance: Float = 0.0
+    @Published var coordinates: LocalVesselDistance = LocalVesselDistance(x1: 0.0
+                                                                       , x2: 0.0
+                                                                       , y1: 0.0
+                                                                       , y2: 0.0
+                                                                       , z1: 0.0
+                                                                       , z2: 0.0
+                                                                       , distance: 0.0
+                                                                       , vesselId: UUID())
     
     func setARView(_ arView: ARSCNView) {
         self.arView = arView
@@ -39,20 +48,30 @@ class ARDelegate2: NSObject, ARSCNViewDelegate, ObservableObject {
         guard let arView = arView else { return }
         
         if startingPositionNode != nil && endingPositionNode != nil {
-          startingPositionNode?.removeFromParentNode()
-          endingPositionNode?.removeFromParentNode()
-          startingPositionNode = nil
-          endingPositionNode = nil
+            startingPositionNode?.removeFromParentNode()
+            endingPositionNode?.removeFromParentNode()
+            startingPositionNode = nil
+            endingPositionNode = nil
+            enableSave = false
+            coordinates = LocalVesselDistance(x1: 0.0
+                                              , x2: 0.0
+                                              , y1: 0.0
+                                              , y2: 0.0
+                                              , z1: 0.0
+                                              , z2: 0.0
+                                              , distance: 0.0
+                                              , vesselId: UUID())
+
         } else if startingPositionNode != nil && endingPositionNode == nil {
-          let sphere = SCNNode(geometry: SCNSphere(radius: 0.002))
-          sphere.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-          Service.addChildNode(sphere, toNode: arView.scene.rootNode, inView: arView, cameraRelativePosition: cameraRelativePosition)
-          endingPositionNode = sphere
+            let sphere = SCNNode(geometry: SCNSphere(radius: 0.002))
+            sphere.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+            Service.addChildNode(sphere, toNode: arView.scene.rootNode, inView: arView, cameraRelativePosition: cameraRelativePosition)
+            endingPositionNode = sphere
         } else if startingPositionNode == nil && endingPositionNode == nil {
-          let sphere = SCNNode(geometry: SCNSphere(radius: 0.002))
-          sphere.geometry?.firstMaterial?.diffuse.contents = UIColor.purple
-          Service.addChildNode(sphere, toNode: arView.scene.rootNode, inView: arView, cameraRelativePosition: cameraRelativePosition)
-          startingPositionNode = sphere
+            let sphere = SCNNode(geometry: SCNSphere(radius: 0.002))
+            sphere.geometry?.firstMaterial?.diffuse.contents = UIColor.purple
+            Service.addChildNode(sphere, toNode: arView.scene.rootNode, inView: arView, cameraRelativePosition: cameraRelativePosition)
+            startingPositionNode = sphere
         }
     }
     
@@ -82,49 +101,6 @@ class ARDelegate2: NSObject, ARSCNViewDelegate, ObservableObject {
         self.activeVesselId = activeVesselId
     }
     
-    private func addCircle(raycastResult: ARRaycastResult) {
-        let circleNode = GeometryUtils.createCircle(fromRaycastResult: raycastResult)
-        if circles.count >= 2 {
-            for circle in circles {
-                circle.removeFromParentNode()
-            }
-            circles.removeAll()
-        }
-        
-        arView?.scene.rootNode.addChildNode(circleNode)
-        circles.append(circleNode)
-        
-        nodesUpdated()
-    }
-    
-    
-    
-    private func moveNode(_ node:SCNNode, raycastResult:ARRaycastResult) {
-        node.simdWorldTransform = raycastResult.worldTransform
-        nodesUpdated()
-    }
-    
-    private func nodeAtLocation(_ location:CGPoint) -> SCNNode? {
-        guard let arView = arView else { return nil }
-        let result = arView.hitTest(location, options: nil)
-        return result.first?.node
-    }
-    
-    private func nodesUpdated() {
-        if circles.count == 2 {
-            let firstNode = circles[0]
-            let secondNode = circles[1]
-            
-            let distance = GeometryUtils.calculateDistance(firstNode: firstNode, secondNode: secondNode)
-            print("distance = \(distance)")
-            message = "distance " + String(format: "%.2f cm", distance)
-            presentMeasurtment.toggle()
-        }
-        else {
-            message = "add second point"
-        }
-    }
-    
     private func raycastResult(fromLocation location: CGPoint) -> ARRaycastResult? {
         guard let arView = arView,
               let query = arView.raycastQuery(from: location,
@@ -136,7 +112,7 @@ class ARDelegate2: NSObject, ARSCNViewDelegate, ObservableObject {
     
     func removeCircle(node:SCNNode) {
         node.removeFromParentNode()
-        presentMeasurtment.toggle()
+        presentMeasurment.toggle()
         circles.removeAll(where: { $0 == node })
     }
     
@@ -148,6 +124,15 @@ class ARDelegate2: NSObject, ARSCNViewDelegate, ObservableObject {
                 node.removeFromParentNode()
             }
         }
+        enableSave = false
+        coordinates = LocalVesselDistance(x1: 0.0
+                                          , x2: 0.0
+                                          , y1: 0.0
+                                          , y2: 0.0
+                                          , z1: 0.0
+                                          , z2: 0.0
+                                          , distance: 0.0
+                                          , vesselId: UUID())
         arView.session.run(configuration, options: [.removeExistingAnchors, .resetTracking])
     }
     
@@ -166,8 +151,22 @@ class ARDelegate2: NSObject, ARSCNViewDelegate, ObservableObject {
           
           return
       }
-        
+         
         if self.startingPositionNode != nil && self.endingPositionNode != nil {
+            
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self = self else { return }
+                self.enableSave.toggle()
+                self.coordinates = LocalVesselDistance(x1: self.startingPositionNode!.position.x
+                                                       , x2: self.endingPositionNode!.position.x
+                                                       , y1: self.startingPositionNode!.position.y
+                                                       , y2: self.endingPositionNode!.position.y
+                                                       , z1: self.startingPositionNode!.position.z
+                                                       , z2: self.endingPositionNode!.position.z
+                                                       , distance: self.distance
+                                                       , vesselId: UUID(uuidString:  self.activeVesselId)!)
+            }
             return
         }
       
@@ -180,7 +179,8 @@ class ARDelegate2: NSObject, ARSCNViewDelegate, ObservableObject {
             self.x = String(format: "x: %.2f", xDistance) + "m"
             self.y = String(format: "y: %.2f", yDistance) + "m"
             self.z = String(format: "z: %.2f", zDistance) + "m"
-            self.distance = String(format: "Distance: %.2f", Service.distance(x: xDistance, y: yDistance, z: zDistance)) + "m"
+            self.distance = Service.distance(x: xDistance, y: yDistance, z: zDistance)
+            self.formattedDistance = String(format: "Distance: %.2f", self.distance) + "m"
         }
     }
     

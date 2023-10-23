@@ -58,7 +58,8 @@ struct ARView: View {
                             Button {
                                 arDelegate.presentMeasurtment.toggle()
                                 print(arDelegate.distance)
-                                loader.insert(vesselDistance: arDelegate.distance)
+                                loader.insert(vesselDistance: arDelegate.distance
+                                              , completion: {  })
                             } label: {
                                 Image(systemName: "square.and.arrow.down")
                             }

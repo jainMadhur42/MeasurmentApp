@@ -9,7 +9,7 @@ import CoreData
 
 protocol VesselDistanceLoader {
     
-    func insert(vesselDistance: LocalVesselDistance)
+    func insert(vesselDistance: LocalVesselDistance, completion: @escaping () -> Void)
     func retrieve(for vesselId: UUID, completion: @escaping (Result<[LocalVesselDistance], Error>) -> Void)
 }
 
@@ -28,7 +28,7 @@ struct CoreDataVesselLoader: VesselDistanceLoader {
             .appendingPathComponent("VesselStore.sqlite"))
     }()
     
-    func insert(vesselDistance: LocalVesselDistance) {
+    func insert(vesselDistance: LocalVesselDistance, completion: @escaping () -> Void) {
         store.insert(vesselDistance: vesselDistance)
     }
     
@@ -57,7 +57,7 @@ struct LocalVesselLoader: VesselDistanceLoader {
                                                              , vesselName: "Madhur"
                                                              , organisation: "Madhur")]
     
-    func insert(vesselDistance: LocalVesselDistance) {
+    func insert(vesselDistance: LocalVesselDistance, completion: @escaping () -> Void) {
         LocalVesselLoader.distances.append(vesselDistance)
     }
     

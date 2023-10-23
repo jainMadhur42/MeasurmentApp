@@ -34,3 +34,9 @@ struct LocalVesselDistance: Identifiable {
         self.vesselId = vesselId
     }
 }
+
+extension LocalVesselDistance: Equatable {
+    
+    
+    
+}
