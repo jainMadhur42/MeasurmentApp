@@ -19,6 +19,7 @@ struct MainView: View {
     var vesselInfoLoader: VesselInfoLoader
     var vesselDistanceLoader: VesselDistanceLoader
     @State private var addNewVessel = false
+    @State private var howToUse = false
     @State private var viewState: ViewState = .empty
     @State private var isSaveButtonEnable: Bool = false
     @State private var vessels = [LocalVesselInfo]()
@@ -57,6 +58,21 @@ struct MainView: View {
                                , markAsSelected: { uuid in
                         activeVesselInfo = uuid
                         self.vessels = mapSelection(vessels: self.vessels)
+                    }, deleteVessel: {
+                        vesselInfoLoader.delete(uuid: $0) { error in
+                            guard let _ = error else {
+                                refresh()
+                                activeVesselInfo = self.vessels[0].id.uuidString
+                                return
+                            }
+                        }
+                    }, deletedistance: {
+                        vesselDistanceLoader.delete(distance: $0) { error in
+                            guard let _ = error else {
+                                
+                                return
+                            }
+                        }
                     })
                     .padding(.top)
                     .background(ThemeColor.backGround.color)
@@ -85,6 +101,15 @@ struct MainView: View {
                         addNewVessel.toggle()
                     } label: {
                         Image(systemName: "plus.circle")
+                            .renderingMode(.template)
+                            .foregroundColor(ThemeColor.backGround.color)
+                    }
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        howToUse.toggle()
+                    } label: {
+                        Image(systemName: "info.circle.fill")
                             .renderingMode(.template)
                             .foregroundColor(ThemeColor.backGround.color)
                     }
@@ -123,6 +148,9 @@ struct MainView: View {
                             })
                         }
                 }
+            }
+            .sheet(isPresented: $howToUse) {
+                HowTo()
             }
         }
         .background(ThemeColor.tint.color)

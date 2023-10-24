@@ -11,6 +11,8 @@ struct ARView2: View {
     
     @Binding var activeVesselId: String
     @ObservedObject var arDelegate: ARDelegate2
+    @State var showError = false
+    @State var isSaved = false
     var loader: VesselDistanceLoader
 
     var body: some View {
@@ -23,9 +25,15 @@ struct ARView2: View {
             }
             VStack(alignment: .trailing) {
                 Button {
-                    loader.insert(vesselDistance: arDelegate.coordinates) {
-                        arDelegate.resetScene()
+                    if arDelegate.enableSave {
+                        loader.insert(vesselDistance: arDelegate.coordinates) {
+                            showError.toggle()
+                            arDelegate.resetScene()
+                        }
+                    } else {
+                        showError.toggle()
                     }
+                    
                 } label: {
                     ZStack {
                         Image(systemName: "square.and.arrow.down")
@@ -38,9 +46,18 @@ struct ARView2: View {
                         
                     }
                 }
-                .opacity(arDelegate.enableSave ? 1 : 0)
-                .disabled(!arDelegate.enableSave)
-
+                .alert(isPresented: $showError) {
+                    if !arDelegate.enableSave {
+                        return  Alert(title: Text("Unable to save")
+                        , message: Text("Distance not calculated")
+                        , dismissButton: .default(Text("OK")))
+                    }
+                    else {
+                        return  Alert(title: Text("Success")
+                        , message: Text("Distance has been saved Successfully")
+                        , dismissButton: .default(Text("OK")))
+                    }
+                }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
             .padding(EdgeInsets(top: 45, leading: 8, bottom: 16, trailing: 16))

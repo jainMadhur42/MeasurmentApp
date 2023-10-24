@@ -11,6 +11,8 @@ struct VesselList: View {
     
     @Binding var vessels: [LocalVesselInfo]
     var markAsSelected: (String) -> Void
+    var deleteVessel: (UUID) -> Void
+    var deletedistance: (UUID) -> Void
     
     var body: some View {
         
@@ -21,7 +23,11 @@ struct VesselList: View {
                     .foregroundColor(ThemeColor.tint.color)
                 
                 NavigationLink {
-                    MeasurmentList(vesselLoader: CoreDataVesselLoader(), vesselId: vessel.id)
+                    MeasurmentList(vesselLoader: CoreDataVesselLoader()
+                            , vesselId: vessel.id
+                            , deletedistance: {
+                        self.deletedistance($0)
+                    })
                 } label: {
                     Text(vessel.vesselName)
                 }
@@ -32,6 +38,15 @@ struct VesselList: View {
                 }
                 .tint(ThemeColor.tint.color)
             }
+            .swipeActions {
+                Button {
+                    deleteVessel(vessel.id)
+                } label: {
+                    Image(systemName: "xmark.bin.circle.fill")
+                        
+                }
+                .tint(ThemeColor.deleteColor.color)
+            }
         }
         
     }
@@ -40,6 +55,10 @@ struct VesselList: View {
 struct VesselList_Previews: PreviewProvider {
     static var previews: some View {
         VesselList(vessels: .constant(LocalVesselLoader.vessels), markAsSelected: {
+            print($0)
+        }, deleteVessel: {
+            print($0)
+        }, deletedistance: {
             print($0)
         })
     }

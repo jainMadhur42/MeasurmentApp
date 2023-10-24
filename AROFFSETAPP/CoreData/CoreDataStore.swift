@@ -78,6 +78,39 @@ public final class CoreDataStore {
         }
     }
     
+    func delete(vessel uuid: UUID, completion: @escaping (Error?) -> Void) {
+        perform { context in
+            do {
+                guard let managedVesselInfo =  try? ManagedVesselInfo.fetch(in: context) else {
+                    
+                    completion(NSError(domain: "Item not found", code: 123))
+                    return
+                }
+                context.delete(managedVesselInfo.first!)
+                try context.save()
+                completion(nil)
+            } catch let error {
+                completion(error)
+            }
+        }
+    }
+    
+    func delete(distance uuid: UUID, completion: @escaping (Error?) -> Void) {
+        perform { context in
+            do {
+                guard let managedDistance =  try? ManagedDistance.fetch(distance: uuid, in: context).first else {
+                    completion(NSError(domain: "Distance not found", code: 123))
+                    return
+                }
+                context.delete(managedDistance)
+                try context.save()
+                completion(nil)
+            } catch let error {
+                completion(error)
+            }
+        }
+    }
+    
     private func perform(_ action: @escaping (NSManagedObjectContext) -> Void) {
         let context = self.context
         context.perform { action(context) }

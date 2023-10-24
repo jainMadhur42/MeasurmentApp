@@ -9,9 +9,11 @@ import SwiftUI
 
 struct MeasurmentList: View {
 
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var vesselLoader: VesselDistanceLoader
     var vesselId: UUID
     @State var vesselDistances: [LocalVesselDistance] = []
+    var deletedistance: (UUID) -> Void
     
     var body: some View {
         Group {
@@ -25,6 +27,15 @@ struct MeasurmentList: View {
             } else {
                 List(vesselDistances) { vesselDistance in
                     MeasurmentListItem(vesselDistance: vesselDistance)
+                        .swipeActions(content: {
+                            Button {
+                                deletedistance(vesselDistance.id)
+                                self.presentationMode.wrappedValue.dismiss()
+                            } label: {
+                                Image(systemName: "xmark.bin.circle.fill")
+                            }
+                            .tint(ThemeColor.deleteColor.color)
+                        })
                 }
                 .padding(.top)
                 .background(ThemeColor.backGround.color)
@@ -46,6 +57,8 @@ struct MeasurmentList: View {
 
 struct MeasurmentList_Previews: PreviewProvider {
     static var previews: some View {
-        MeasurmentList(vesselLoader: LocalVesselLoader(), vesselId: UUID())
+        MeasurmentList(vesselLoader: LocalVesselLoader(), vesselId: UUID(), deletedistance: {
+            print($0)
+        })
     }
 }

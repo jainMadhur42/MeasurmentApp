@@ -30,8 +30,15 @@ extension ManagedDistance {
         return try context.fetch(request)
     }
     
+    static func fetch(distance id: UUID, in context: NSManagedObjectContext) throws -> [ManagedDistance] {
+        
+        let request = NSFetchRequest<ManagedDistance>(entityName: entity().name!)
+        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        return try context.fetch(request)
+    }
+    
     func update(with localVesselDistance: LocalVesselDistance, in context: NSManagedObjectContext) throws {
-        self.id = UUID()
+        self.id = localVesselDistance.id
         self.x1 = localVesselDistance.x1
         self.x2 = localVesselDistance.x2
         self.y1 = localVesselDistance.y1

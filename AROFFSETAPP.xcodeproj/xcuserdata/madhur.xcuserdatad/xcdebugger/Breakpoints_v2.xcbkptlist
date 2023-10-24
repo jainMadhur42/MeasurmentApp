@@ -206,8 +206,8 @@
             filePath = "AROFFSETAPP/CoreData/ManagedVesselDistance.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
             landmarkName = "update(with:in:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -222,8 +222,8 @@
             filePath = "AROFFSETAPP/CoreData/ManagedVesselDistance.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "update(with:in:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -238,8 +238,8 @@
             filePath = "AROFFSETAPP/Views/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "insert(localVesselInfo:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -254,13 +254,13 @@
             filePath = "AROFFSETAPP/Views/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
             landmarkName = "insert(localVesselInfo:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "732A5F83-A488-4431-ADF3-9A8D31862C2A - 9d40e677a26840d4"
+                  uuid = "732A5F83-A488-4431-ADF3-9A8D31862C2A - 9d40e677a2684cb0"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -270,12 +270,12 @@
                   urlString = "file:///Users/madhur/MeasurmentApp/AROFFSETAPP/Views/MainView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "169"
-                  endingLineNumber = "169"
+                  startingLineNumber = "197"
+                  endingLineNumber = "197"
                   offsetFromSymbolStart = "660">
                </Location>
                <Location
-                  uuid = "732A5F83-A488-4431-ADF3-9A8D31862C2A - 9d40e677a26840d4"
+                  uuid = "732A5F83-A488-4431-ADF3-9A8D31862C2A - 9d40e677a2684cb0"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -285,8 +285,8 @@
                   urlString = "file:///Users/madhur/MeasurmentApp/AROFFSETAPP/Views/MainView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "169"
-                  endingLineNumber = "169"
+                  startingLineNumber = "197"
+                  endingLineNumber = "197"
                   offsetFromSymbolStart = "764">
                </Location>
             </Locations>
@@ -302,8 +302,8 @@
             filePath = "AROFFSETAPP/Views/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -334,10 +334,170 @@
             filePath = "AROFFSETAPP/Service/LocalVesselLoader.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
             landmarkName = "insert(vesselDistance:completion:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D75BAFBA-AF4A-4E22-9E15-91DEE1AD8195"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AROFFSETAPP/Views/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8178C05E-1CB0-476A-8ADD-96B618FF6E7F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AROFFSETAPP/Views/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "63ECC448-98E9-4F71-8BCF-33012EBCC5AF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AROFFSETAPP/LoadMeasurment/VesselList.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E71060AA-7CFF-4007-9436-B7DD86252E32"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AROFFSETAPP/Service/LocalVesselLoader.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "delete(uuid:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E8E90614-9ACE-4D36-A373-0BB8E3BD0682"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AROFFSETAPP/CoreData/CoreDataStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "delete(vessel:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F47E1FA8-FC7B-4A6C-8042-8EE4E2A29A99"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AROFFSETAPP/CoreData/CoreDataStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "delete(distance:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B5C81CB6-B9DD-49C8-8802-DDBE63AC4A64"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AROFFSETAPP/CoreData/ManagedVesselDistance.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "fetch(distance:in:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B5C81CB6-B9DD-49C8-8802-DDBE63AC4A64 - f840acf48a151937"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static AROFFSETAPP.ManagedDistance.fetch(distance: Foundation.UUID, in: __C.NSManagedObjectContext) throws -&gt; Swift.Array&lt;AROFFSETAPP.ManagedDistance&gt;"
+                  moduleName = "AROFFSETAPP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhur/MeasurmentApp/AROFFSETAPP/CoreData/ManagedVesselDistance.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "188">
+               </Location>
+               <Location
+                  uuid = "B5C81CB6-B9DD-49C8-8802-DDBE63AC4A64 - f840acf48a151937"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static AROFFSETAPP.ManagedDistance.fetch(distance: Foundation.UUID, in: __C.NSManagedObjectContext) throws -&gt; Swift.Array&lt;AROFFSETAPP.ManagedDistance&gt;"
+                  moduleName = "AROFFSETAPP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madhur/MeasurmentApp/AROFFSETAPP/CoreData/ManagedVesselDistance.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "284">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1595D6F4-87E2-45C2-8016-7004A0B437DF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AROFFSETAPP/ArView2/ArView2.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
