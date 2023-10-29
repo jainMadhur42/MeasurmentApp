@@ -73,6 +73,8 @@ struct MainView: View {
                                 return
                             }
                         }
+                    }, share: { distance in
+                        shareButton(distance: distance)
                     })
                     .padding(.top)
                     .background(ThemeColor.backGround.color)
@@ -89,7 +91,9 @@ struct MainView: View {
                     NavigationLink {
                         ARView(activeVesselId: $activeVesselInfo
                                , arDelegate: ARDelegate(activeVesselId: activeVesselInfo)
-                               , loader: vesselDistanceLoader)
+                               , loader: vesselDistanceLoader, share: { distance in
+                            shareButton(distance: distance)
+                        })
                     } label: {
                         Image(systemName: "camera.circle")
                             .renderingMode(.template)
@@ -198,6 +202,20 @@ struct MainView: View {
             }
             refresh()
         })
+    }
+    
+    func shareButton(distance: LocalVesselDistance) {
+        let dataSource = ShareableTextSource(text: distance.toString)
+        
+        let activityController = UIActivityViewController(activityItems: [dataSource], applicationActivities: nil)
+        
+        activityController.excludedActivityTypes = [UIActivity.ActivityType.airDrop
+                                                , UIActivity.ActivityType.postToFacebook
+                                                , UIActivity.ActivityType.assignToContact]
+               
+        UIApplication.shared.windows.first?.rootViewController!.present(activityController
+                                                                        , animated: true
+                                                                        , completion: nil)
     }
 }
 

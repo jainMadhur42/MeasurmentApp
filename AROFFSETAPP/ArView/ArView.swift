@@ -14,7 +14,8 @@ struct ARView: View {
     @State var showError = false
     @State var isSaved = false
     var loader: VesselDistanceLoader
-
+    var share: (LocalVesselDistance) -> Void
+    
     var body: some View {
         if !arDelegate.enableSave {
             ZStack {
@@ -52,7 +53,7 @@ struct ARView: View {
                     .padding(.all)
                 HStack {
                     Button {
-                        arDelegate.enableSave = false
+                        arDelegate.resetScene()
                     } label: {
                         Text("close")
                     }
@@ -71,7 +72,7 @@ struct ARView: View {
                     .buttonStyle(.borderedProminent)
                     
                     Button {
-                        
+                        share(arDelegate.coordinates)
                     } label: {
                         Text("Share")
                     }

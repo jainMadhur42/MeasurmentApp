@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct LocalVesselDistance: Identifiable {
     
     var id: UUID
@@ -37,6 +36,13 @@ struct LocalVesselDistance: Identifiable {
 
 extension LocalVesselDistance: Equatable {
     
-    
-    
+    var toString: String {
+        return """
+                \(String(format: "x1: %.2f", self.x1)), \(String(format: "y1: %.2f", self.y1)), \(String(format: "z1: %.2f", self.z1)),
+                \(String(format: "x2: %.2f", self.x2)), \(String(format: "y2: %.2f", self.y2)),
+                \(String(format: "z2: %.2f", self.z2)),
+                \(String(format: "Distance: %.2f", self.distance)),
+                date: \(self.date)
+"""
+    }
 }

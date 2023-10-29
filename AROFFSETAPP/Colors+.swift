@@ -12,6 +12,7 @@ enum ThemeColor {
     case backGround
     case tint
     case deleteColor
+    case shareColor
     
     var color: Color {
         switch self {
@@ -21,6 +22,8 @@ enum ThemeColor {
             return .green
         case .deleteColor:
             return .red
+        case .shareColor:
+            return .green
         }
     }
     
@@ -34,6 +37,8 @@ enum ThemeColor {
             return .green
         case .deleteColor:
             return .red
+        case .shareColor:
+            return .green
         }
     }
 }

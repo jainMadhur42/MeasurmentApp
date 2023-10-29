@@ -25,6 +25,7 @@
 		E0A027292AE260CD00B33B81 /* ARDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A027282AE260CD00B33B81 /* ARDelegate.swift */; };
 		E0A0272C2AE267B200B33B81 /* ArView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A0272B2AE267B200B33B81 /* ArView.swift */; };
 		E0A0272E2AE26EBA00B33B81 /* ARViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A0272D2AE26EBA00B33B81 /* ARViewRepresentable.swift */; };
+		E0B275672AEE637B00BB832C /* ShareableTextSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B275662AEE637B00BB832C /* ShareableTextSource.swift */; };
 		E0C7F9452AD51F2D000C8505 /* MeasurmentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F9442AD51F2D000C8505 /* MeasurmentList.swift */; };
 		E0C7F9472AD522EA000C8505 /* MeasurmentListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F9462AD522EA000C8505 /* MeasurmentListItem.swift */; };
 		E0C7F9492AD52B38000C8505 /* VesselList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F9482AD52B38000C8505 /* VesselList.swift */; };
@@ -81,6 +82,7 @@
 		E0A027282AE260CD00B33B81 /* ARDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDelegate.swift; sourceTree = "<group>"; };
 		E0A0272B2AE267B200B33B81 /* ArView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArView.swift; sourceTree = "<group>"; };
 		E0A0272D2AE26EBA00B33B81 /* ARViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewRepresentable.swift; sourceTree = "<group>"; };
+		E0B275662AEE637B00BB832C /* ShareableTextSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareableTextSource.swift; sourceTree = "<group>"; };
 		E0C7F9442AD51F2D000C8505 /* MeasurmentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurmentList.swift; sourceTree = "<group>"; };
 		E0C7F9462AD522EA000C8505 /* MeasurmentListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurmentListItem.swift; sourceTree = "<group>"; };
 		E0C7F9482AD52B38000C8505 /* VesselList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VesselList.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				7D0300C02AAFB29C0098500A /* Assets.xcassets */,
 				7D0300C22AAFB29C0098500A /* Preview Content */,
 				E0A027172ADE7B9900B33B81 /* Theme.swift */,
+				E0B275662AEE637B00BB832C /* ShareableTextSource.swift */,
 			);
 			path = AROFFSETAPP;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 				E0A0272C2AE267B200B33B81 /* ArView.swift in Sources */,
 				7D5F06232AB283960004E9E8 /* AddVesselInfoView.swift in Sources */,
 				E055A3332ADD610C00C0E6F6 /* Colors+.swift in Sources */,
+				E0B275672AEE637B00BB832C /* ShareableTextSource.swift in Sources */,
 				E0C7F9542AD66BE5000C8505 /* VesselStore.xcdatamodeld in Sources */,
 				E0C7F96D2AD7C99E000C8505 /* Constants.swift in Sources */,
 			);

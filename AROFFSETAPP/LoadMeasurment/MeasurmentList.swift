@@ -14,6 +14,7 @@ struct MeasurmentList: View {
     var vesselId: UUID
     @State var vesselDistances: [LocalVesselDistance] = []
     var deletedistance: (UUID) -> Void
+    var share: (LocalVesselDistance) -> Void
     
     var body: some View {
         Group {
@@ -37,12 +38,11 @@ struct MeasurmentList: View {
                             .tint(ThemeColor.deleteColor.color)
                             
                             Button {
-                                deletedistance(vesselDistance.id)
-                                self.presentationMode.wrappedValue.dismiss()
+                               share(vesselDistance)
                             } label: {
                                 Image(systemName: "square.and.arrow.up")
                             }
-                            .tint(ThemeColor.deleteColor.color)
+                            .tint(ThemeColor.shareColor.color)
                         })
                 }
                 .padding(.top)
@@ -67,6 +67,6 @@ struct MeasurmentList_Previews: PreviewProvider {
     static var previews: some View {
         MeasurmentList(vesselLoader: LocalVesselLoader(), vesselId: UUID(), deletedistance: {
             print($0)
-        })
+        }, share: { _ in })
     }
 }

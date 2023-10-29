@@ -13,6 +13,7 @@ struct VesselList: View {
     var markAsSelected: (String) -> Void
     var deleteVessel: (UUID) -> Void
     var deletedistance: (UUID) -> Void
+    var share: (LocalVesselDistance) -> Void
     
     var body: some View {
         
@@ -27,7 +28,7 @@ struct VesselList: View {
                             , vesselId: vessel.id
                             , deletedistance: {
                         self.deletedistance($0)
-                    })
+                    }, share: share)
                 } label: {
                     Text(vessel.vesselName)
                 }
@@ -60,6 +61,6 @@ struct VesselList_Previews: PreviewProvider {
             print($0)
         }, deletedistance: {
             print($0)
-        })
+        }, share: { _ in })
     }
 }
