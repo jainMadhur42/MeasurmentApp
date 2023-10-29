@@ -9,7 +9,7 @@ import Foundation
 import ARKit
 import UIKit
 
-class ARDelegate2: NSObject, ARSCNViewDelegate, ObservableObject {
+class ARDelegate: NSObject, ARSCNViewDelegate, ObservableObject {
     
     @Published var enableSave = false
     @Published var presentMeasurment: Bool = false

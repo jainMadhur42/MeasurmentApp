@@ -1,5 +1,5 @@
 //
-//  ARView2.swift
+//  ARView.swift
 //  SwiftUIARKit
 //
 //  Created by Gualtiero Frigerio on 18/05/21.
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct ARView2: View {
+struct ARView: View {
     
     @Binding var activeVesselId: String
-    @ObservedObject var arDelegate: ARDelegate2
+    @ObservedObject var arDelegate: ARDelegate
     @State var showError = false
     @State var isSaved = false
     var loader: VesselDistanceLoader
@@ -18,7 +18,7 @@ struct ARView2: View {
     var body: some View {
         if !arDelegate.enableSave {
             ZStack {
-                ARViewRepresentable2(arDelegate: arDelegate)
+                ARViewRepresentable(arDelegate: arDelegate)
                 Button {
                     
                 } label: {
@@ -45,30 +45,6 @@ struct ARView2: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                 .padding(EdgeInsets(top: 45, leading: 8, bottom: 16, trailing: 0))
-     
-    //            .sheet(isPresented: $arDelegate.enableSave) {
-    //                NavigationView {
-    //                    DistanceInsertConfirmationView(distance: arDelegate.coordinates)
-    //                        .toolbar {
-    //                            ToolbarItem(placement: .confirmationAction, content: {
-    //                                Button {
-    
-    //                                } label: {
-    //                                    Text("Save")
-    //
-    //                                }
-    //                            })
-    //                            ToolbarItem(placement: .cancellationAction, content: {
-    //                                Button {
-    //                                    arDelegate.enableSave.toggle()
-    //                                } label: {
-    //                                    Text("Cancel")
-    //                                        .foregroundColor(ThemeColor.backGround.color)
-    //                                }
-    //                            })
-    //                        }
-    //                }
-    //            }
             }.edgesIgnoringSafeArea(.all)
         } else {
             VStack {
@@ -88,7 +64,6 @@ struct ARView2: View {
                             DispatchQueue.main.async {
                                 arDelegate.resetScene()
                             }
-                            
                         }
                     } label: {
                         Text("Save")

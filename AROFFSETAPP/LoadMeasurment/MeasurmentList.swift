@@ -35,6 +35,14 @@ struct MeasurmentList: View {
                                 Image(systemName: "xmark.bin.circle.fill")
                             }
                             .tint(ThemeColor.deleteColor.color)
+                            
+                            Button {
+                                deletedistance(vesselDistance.id)
+                                self.presentationMode.wrappedValue.dismiss()
+                            } label: {
+                                Image(systemName: "square.and.arrow.up")
+                            }
+                            .tint(ThemeColor.deleteColor.color)
                         })
                 }
                 .padding(.top)

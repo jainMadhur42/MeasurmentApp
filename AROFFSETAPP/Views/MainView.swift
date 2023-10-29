@@ -87,8 +87,8 @@ struct MainView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        ARView2(activeVesselId: $activeVesselInfo
-                               , arDelegate: ARDelegate2(activeVesselId: activeVesselInfo)
+                        ARView(activeVesselId: $activeVesselInfo
+                               , arDelegate: ARDelegate(activeVesselId: activeVesselInfo)
                                , loader: vesselDistanceLoader)
                     } label: {
                         Image(systemName: "camera.circle")

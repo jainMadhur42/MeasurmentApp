@@ -9,9 +9,9 @@
 import ARKit
 import SwiftUI
 
-struct ARViewRepresentable2: UIViewRepresentable {
+struct ARViewRepresentable: UIViewRepresentable {
     
-    let arDelegate:ARDelegate2
+    let arDelegate:ARDelegate
     
     func makeUIView(context: Context) -> some UIView {
         let arView = ARSCNView(frame: .zero)
@@ -29,6 +29,6 @@ struct ARViewRepresentable2: UIViewRepresentable {
 struct ARViewRepresentable2_Previews: PreviewProvider {
     
     static var previews: some View {
-        ARViewRepresentable2(arDelegate: ARDelegate2(activeVesselId: UUID().uuidString))
+        ARViewRepresentable(arDelegate: ARDelegate(activeVesselId: UUID().uuidString))
     }
 }
