@@ -52,7 +52,6 @@ class ARDelegate2: NSObject, ARSCNViewDelegate, ObservableObject {
             endingPositionNode?.removeFromParentNode()
             startingPositionNode = nil
             endingPositionNode = nil
-            enableSave = false
             coordinates = LocalVesselDistance(x1: 0.0
                                               , x2: 0.0
                                               , y1: 0.0
@@ -119,12 +118,15 @@ class ARDelegate2: NSObject, ARSCNViewDelegate, ObservableObject {
     func resetScene() {
         guard let arView = arView else { return }
         arView.session.pause()
+        enableSave = false
+        startingPositionNode = nil
+        endingPositionNode = nil
+        
         arView.scene.rootNode.enumerateChildNodes { (node, _) in
             if node.name == "node" {
                 node.removeFromParentNode()
             }
         }
-        enableSave = false
         coordinates = LocalVesselDistance(x1: 0.0
                                           , x2: 0.0
                                           , y1: 0.0

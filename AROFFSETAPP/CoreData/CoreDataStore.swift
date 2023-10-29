@@ -16,12 +16,14 @@ public final class CoreDataStore {
         context = container.newBackgroundContext()
     }
 
-    func insert(vesselDistance: LocalVesselDistance) {
+    func insert(vesselDistance: LocalVesselDistance, completion: @escaping (Error?) -> Void) {
         perform { context in
             do {
                 let managedDistance = ManagedDistance(context: context)
                 try managedDistance.update(with: vesselDistance, in: context)
+                completion(nil)
             } catch let error {
+                completion(error)
                 print("Error \(error)")
             }
         }

@@ -9,7 +9,7 @@ import CoreData
 
 protocol VesselDistanceLoader {
     
-    func insert(vesselDistance: LocalVesselDistance, completion: @escaping () -> Void)
+    func insert(vesselDistance: LocalVesselDistance, completion: @escaping (Error?) -> Void)
     func delete(distance uuid: UUID, completion: @escaping (Error?) -> Void)
     func retrieve(for vesselId: UUID, completion: @escaping (Result<[LocalVesselDistance], Error>) -> Void)
 }
@@ -30,8 +30,8 @@ struct CoreDataVesselLoader: VesselDistanceLoader {
             .appendingPathComponent("VesselStore.sqlite"))
     }()
     
-    func insert(vesselDistance: LocalVesselDistance, completion: @escaping () -> Void) {
-        store.insert(vesselDistance: vesselDistance)
+    func insert(vesselDistance: LocalVesselDistance, completion: @escaping (Error?) -> Void) {
+        store.insert(vesselDistance: vesselDistance, completion: completion)
     }
     
     func retrieve(for vesselId: UUID, completion: @escaping (Result<[LocalVesselDistance], Error>) -> Void) {
@@ -62,14 +62,18 @@ extension CoreDataVesselLoader: VesselInfoLoader {
 
 struct LocalVesselLoader: VesselDistanceLoader {
     
-    static var distances = [LocalVesselDistance]()
+    static var distances: [LocalVesselDistance] = [LocalVesselDistance(x1: 122.0, x2: 13.0
+                                                                       , y1: 15.0, y2: 32.0
+                                                                       , z1: 26.0, z2: 13.0
+                                                                       , distance: 56.0
+                                                                       , vesselId: UUID())]
     static var vessels: [LocalVesselInfo] = [LocalVesselInfo(id: UUID()
                                                              , contactEmail: "madhur.jain@gmail.com"
                                                              , contactPersonName: "Madhur Jain"
                                                              , vesselName: "Madhur"
                                                              , organisation: "Madhur")]
     
-    func insert(vesselDistance: LocalVesselDistance, completion: @escaping () -> Void) {
+    func insert(vesselDistance: LocalVesselDistance, completion: @escaping (Error?) -> Void) {
         LocalVesselLoader.distances.append(vesselDistance)
     }
     

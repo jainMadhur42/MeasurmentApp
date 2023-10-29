@@ -16,75 +16,94 @@ struct ARView2: View {
     var loader: VesselDistanceLoader
 
     var body: some View {
-        ZStack {
-            ARViewRepresentable2(arDelegate: arDelegate)
-            Button {
-                
-            } label: {
-                Image(systemName: "plus")
-            }
-            VStack(alignment: .trailing) {
+        if !arDelegate.enableSave {
+            ZStack {
+                ARViewRepresentable2(arDelegate: arDelegate)
                 Button {
-                    if arDelegate.enableSave {
-                        loader.insert(vesselDistance: arDelegate.coordinates) {
-                            showError.toggle()
-                            arDelegate.resetScene()
-                        }
-                    } else {
-                        showError.toggle()
-                    }
                     
                 } label: {
-                    ZStack {
-                        Image(systemName: "square.and.arrow.down")
-                            .frame(width: 40, height: 40)
-                            .background(.white)
-                            .foregroundColor(.black)
-                            .clipShape(Circle())
-                            .opacity(0.5)
-                            .padding()
+                    Image(systemName: "plus")
+                }
+                VStack(alignment: .leading, spacing: 12) {
+                    Text(arDelegate.formattedDistance)
+                        .font(.title3)
+                    
+                    Text(arDelegate.x)
+                        .font(.subheadline)
+                        .bold()
+                        .foregroundColor(.green)
+                       
+                    Text(arDelegate.y)
+                        .font(.subheadline)
+                        .bold()
+                        .foregroundColor(.red)
+                    
+                    Text(arDelegate.z)
+                        .font(.subheadline)
+                        .bold()
+                        .foregroundColor(.blue)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
+                .padding(EdgeInsets(top: 45, leading: 8, bottom: 16, trailing: 0))
+     
+    //            .sheet(isPresented: $arDelegate.enableSave) {
+    //                NavigationView {
+    //                    DistanceInsertConfirmationView(distance: arDelegate.coordinates)
+    //                        .toolbar {
+    //                            ToolbarItem(placement: .confirmationAction, content: {
+    //                                Button {
+    
+    //                                } label: {
+    //                                    Text("Save")
+    //
+    //                                }
+    //                            })
+    //                            ToolbarItem(placement: .cancellationAction, content: {
+    //                                Button {
+    //                                    arDelegate.enableSave.toggle()
+    //                                } label: {
+    //                                    Text("Cancel")
+    //                                        .foregroundColor(ThemeColor.backGround.color)
+    //                                }
+    //                            })
+    //                        }
+    //                }
+    //            }
+            }.edgesIgnoringSafeArea(.all)
+        } else {
+            VStack {
+                MeasurmentListItem(vesselDistance: arDelegate.coordinates)
+                    .padding(.all)
+                HStack {
+                    Button {
+                        arDelegate.enableSave = false
+                    } label: {
+                        Text("close")
+                    }
+                    .buttonStyle(.borderedProminent)
+                    
+                    Button {
+                        loader.insert(vesselDistance: arDelegate.coordinates) { _ in
+                            print("Distance Saved")
+                            DispatchQueue.main.async {
+                                arDelegate.resetScene()
+                            }
+                            
+                        }
+                    } label: {
+                        Text("Save")
+                    }
+                    .buttonStyle(.borderedProminent)
+                    
+                    Button {
                         
+                    } label: {
+                        Text("Share")
                     }
-                }
-                .alert(isPresented: $showError) {
-                    if !arDelegate.enableSave {
-                        return  Alert(title: Text("Unable to save")
-                        , message: Text("Distance not calculated")
-                        , dismissButton: .default(Text("OK")))
-                    }
-                    else {
-                        return  Alert(title: Text("Success")
-                        , message: Text("Distance has been saved Successfully")
-                        , dismissButton: .default(Text("OK")))
-                    }
+                    .buttonStyle(.borderedProminent)
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-            .padding(EdgeInsets(top: 45, leading: 8, bottom: 16, trailing: 16))
-            
-            VStack(alignment: .leading, spacing: 12) {
-                Text(arDelegate.formattedDistance)
-                    .font(.title3)
-                
-                Text(arDelegate.x)
-                    .font(.subheadline)
-                    .bold()
-                    .foregroundColor(.green)
-                   
-                Text(arDelegate.y)
-                    .font(.subheadline)
-                    .bold()
-                    .foregroundColor(.red)
-                
-                Text(arDelegate.z)
-                    .font(.subheadline)
-                    .bold()
-                    .foregroundColor(.blue)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-            .padding(EdgeInsets(top: 45, leading: 8, bottom: 16, trailing: 0))
-        }.edgesIgnoringSafeArea(.all)
-        
+        }
     }
 }
 
