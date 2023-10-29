@@ -42,7 +42,9 @@ extension LocalVesselDistance: Equatable {
                 \(String(format: "x2: %.2f", self.x2)), \(String(format: "y2: %.2f", self.y2)),
                 \(String(format: "z2: %.2f", self.z2)),
                 \(String(format: "Distance: %.2f", self.distance)),
-                date: \(self.date)
+                date: \(self.date),
+                id: \(self.id),
+                vesselId: \(self.vesselId)
 """
     }
 }
