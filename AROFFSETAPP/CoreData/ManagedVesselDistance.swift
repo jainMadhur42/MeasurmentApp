@@ -27,6 +27,8 @@ extension ManagedDistance {
         
         let request = NSFetchRequest<ManagedDistance>(entityName: entity().name!)
         request.predicate = NSPredicate(format: "vessel.id == %@", vesselId as CVarArg)
+        var dateSort = NSSortDescriptor(key:"date", ascending:false)
+        request.sortDescriptors = [dateSort]
         return try context.fetch(request)
     }
     

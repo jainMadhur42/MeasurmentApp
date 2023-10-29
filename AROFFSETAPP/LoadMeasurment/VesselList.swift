@@ -14,6 +14,7 @@ struct VesselList: View {
     var deleteVessel: (UUID) -> Void
     var deletedistance: (UUID) -> Void
     var share: (LocalVesselDistance) -> Void
+    var refresh: () -> Void
     
     var body: some View {
         
@@ -48,8 +49,10 @@ struct VesselList: View {
                 }
                 .tint(ThemeColor.deleteColor.color)
             }
+            .refreshable(action: {
+                refresh()
+            })
         }
-        
     }
 }
 
@@ -61,6 +64,8 @@ struct VesselList_Previews: PreviewProvider {
             print($0)
         }, deletedistance: {
             print($0)
-        }, share: { _ in })
+        }, share: { _ in }, refresh: {
+            
+        })
     }
 }

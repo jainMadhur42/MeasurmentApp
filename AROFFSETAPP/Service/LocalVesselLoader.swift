@@ -16,9 +16,9 @@ protocol VesselDistanceLoader {
 
 protocol VesselInfoLoader {
     
-    func insert(vesselInfo: LocalVesselInfo, completion: @escaping (Result<UUID, Error>) -> Void)
-    func retrieve(completion: @escaping (Result<[LocalVesselInfo], Error>) -> Void)
-    func delete(uuid: UUID, completion: @escaping (Error?) -> Void)
+    func insert(vesselInfo: LocalVesselInfo, completion: @escaping (Result<UUID, Error>) -> Void) async
+    func retrieve(completion: @escaping (Result<[LocalVesselInfo], Error>) -> Void) async
+    func delete(uuid: UUID, completion: @escaping (Error?) -> Void) async
 }
 
 

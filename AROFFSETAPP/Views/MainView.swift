@@ -24,10 +24,10 @@ struct MainView: View {
     @State private var isSaveButtonEnable: Bool = false
     @State private var vessels = [LocalVesselInfo]()
     @State private var tempVessel = LocalVesselInfo(id: UUID()
-                                            , contactEmail: ""
-                                            , contactPersonName: ""
-                                            , vesselName: ""
-                                            , organisation: "")
+                                                    , contactEmail: ""
+                                                    , contactPersonName: ""
+                                                    , vesselName: ""
+                                                    , organisation: "")
     @AppStorage(Constants.activeVessel) private var activeVesselInfo = UUID().uuidString
     
     var body: some View {
@@ -57,16 +57,9 @@ struct MainView: View {
                     VesselList(vessels: $vessels
                                , markAsSelected: { uuid in
                         activeVesselInfo = uuid
-                        self.vessels = mapSelection(vessels: self.vessels)
-                    }, deleteVessel: {
-                        vesselInfoLoader.delete(uuid: $0) { error in
-                            guard let _ = error else {
-                                refresh()
-                                activeVesselInfo = self.vessels[0].id.uuidString
-                                return
-                            }
-                        }
-                    }, deletedistance: {
+                        self.vessels = mapSelection(vessels: self.vessels)},
+                               deleteVessel: { delete(vessel: $0) },
+                               deletedistance: {
                         vesselDistanceLoader.delete(distance: $0) { error in
                             guard let _ = error else {
                                 
@@ -75,6 +68,8 @@ struct MainView: View {
                         }
                     }, share: { distance in
                         shareButton(distance: distance)
+                    }, refresh: {
+                        refresh()
                     })
                     .padding(.top)
                     .background(ThemeColor.backGround.color)
@@ -124,33 +119,33 @@ struct MainView: View {
                     AddVesselInfoView(enableSaveButton: $isSaveButtonEnable
                                       , vesselInfo: $tempVessel
                                       , insert: insert)
-                        .toolbar {
-                            ToolbarItem(placement: .confirmationAction, content: {
-                                Button {
-                                    insert(localVesselInfo: tempVessel)
-                                    addNewVessel.toggle()
-                                    refresh()
-                                    tempVessel = LocalVesselInfo(id: UUID()
-                                                                 , contactEmail: ""
-                                                                 , contactPersonName: ""
-                                                                 , vesselName: ""
-                                                                 , organisation: "")
-                                } label: {
-                                    Text("Save")
-                                        .foregroundColor(isSaveButtonEnable ? ThemeColor.backGround.color : .gray)
-                                }
-                                .disabled(!isSaveButtonEnable)
-
-                            })
-                            ToolbarItem(placement: .cancellationAction, content: {
-                                Button {
-                                    addNewVessel.toggle()
-                                } label: {
-                                    Text("Cancel")
-                                        .foregroundColor(ThemeColor.backGround.color)
-                                }
-                            })
-                        }
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction, content: {
+                            Button {
+                                insert(localVesselInfo: tempVessel)
+                                addNewVessel.toggle()
+                                refresh()
+                                tempVessel = LocalVesselInfo(id: UUID()
+                                                             , contactEmail: ""
+                                                             , contactPersonName: ""
+                                                             , vesselName: ""
+                                                             , organisation: "")
+                            } label: {
+                                Text("Save")
+                                    .foregroundColor(isSaveButtonEnable ? ThemeColor.backGround.color : .gray)
+                            }
+                            .disabled(!isSaveButtonEnable)
+                            
+                        })
+                        ToolbarItem(placement: .cancellationAction, content: {
+                            Button {
+                                addNewVessel.toggle()
+                            } label: {
+                                Text("Cancel")
+                                    .foregroundColor(ThemeColor.backGround.color)
+                            }
+                        })
+                    }
                 }
             }
             .sheet(isPresented: $howToUse) {
@@ -169,14 +164,28 @@ struct MainView: View {
     
     private func refresh() {
         viewState = .loading
-        vesselInfoLoader.retrieve { result in
-            switch result {
-            case .success(let vessels):
-                self.vessels = mapSelection(vessels: vessels)
-            case .failure(let error):
-                self.viewState = .error(error)
+        Task {
+            await vesselInfoLoader.retrieve { result in
+                switch result {
+                case .success(let vessels):
+                    self.vessels = mapSelection(vessels: vessels)
+                case .failure(let error):
+                    self.viewState = .error(error)
+                }
+                self.viewState = vessels.isEmpty ? .empty : .completed
             }
-            self.viewState = vessels.isEmpty ? .empty : .completed
+        }
+    }
+    
+    private func delete(vessel: UUID) {
+        Task {
+            await vesselInfoLoader.delete(uuid: vessel) { error in
+                guard let _ = error else {
+                    refresh()
+                    activeVesselInfo = self.vessels[0].id.uuidString
+                    return
+                }
+            }
         }
     }
     
@@ -193,15 +202,17 @@ struct MainView: View {
     }
     
     private func insert(localVesselInfo: LocalVesselInfo) {
-        vesselInfoLoader.insert(vesselInfo: localVesselInfo, completion: { result in
-            switch result {
-            case .success(let uuid):
-                activeVesselInfo = uuid.uuidString
-            case .failure(let error):
-                print("error Occurred \(error)")
-            }
-            refresh()
-        })
+        Task {
+            await vesselInfoLoader.insert(vesselInfo: localVesselInfo, completion: { result in
+                switch result {
+                case .success(let uuid):
+                    activeVesselInfo = uuid.uuidString
+                case .failure(let error):
+                    print("error Occurred \(error)")
+                }
+                refresh()
+            })
+        }
     }
     
     func shareButton(distance: LocalVesselDistance) {
