@@ -1,11 +1,3 @@
-//
-//  ARViewRepresentable2.swift
-//  AROFFSETAPP
-//
-//  Created by Madhur on 20/10/23.
-//
-
-
 import ARKit
 import SwiftUI
 

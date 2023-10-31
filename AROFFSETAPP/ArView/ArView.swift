@@ -1,10 +1,3 @@
-//
-//  ARView.swift
-//  SwiftUIARKit
-//
-//  Created by Gualtiero Frigerio on 18/05/21.
-//
-
 import SwiftUI
 
 struct ARView: View {

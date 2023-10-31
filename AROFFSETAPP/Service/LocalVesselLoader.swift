@@ -2,7 +2,7 @@
 //  LocalVesselLoader.swift
 //  AROFFSETAPP
 //
-//  Created by Madhur on 11/10/23.
+//  Created by Darshan on 11/10/23.
 //
 
 import CoreData
@@ -68,10 +68,10 @@ struct LocalVesselLoader: VesselDistanceLoader {
                                                                        , distance: 56.0
                                                                        , vesselId: UUID())]
     static var vessels: [LocalVesselInfo] = [LocalVesselInfo(id: UUID()
-                                                             , contactEmail: "madhur.jain@gmail.com"
-                                                             , contactPersonName: "Madhur Jain"
-                                                             , vesselName: "Madhur"
-                                                             , organisation: "Madhur")]
+                                                             , contactEmail: "comit.comit@gmail.com"
+                                                             , contactPersonName: "COMIT COMIT"
+                                                             , vesselName: "COMIT"
+                                                             , organisation: "COMIT")]
     
     func insert(vesselDistance: LocalVesselDistance, completion: @escaping (Error?) -> Void) {
         LocalVesselLoader.distances.append(vesselDistance)
