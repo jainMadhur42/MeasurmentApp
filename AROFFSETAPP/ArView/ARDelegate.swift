@@ -11,7 +11,7 @@ class ARDelegate: NSObject, ARSCNViewDelegate, ObservableObject {
     @Published var y: String = "y: 0.0"
     @Published var z: String = "z: 0.0"
     @Published var formattedDistance: String = "Distance: 0.0"
-    var distance: Float = 0.0
+    @Published var activeVesselId: String
     @Published var coordinates: LocalVesselDistance = LocalVesselDistance(x1: 0.0
                                                                        , x2: 0.0
                                                                        , y1: 0.0
@@ -20,6 +20,20 @@ class ARDelegate: NSObject, ARSCNViewDelegate, ObservableObject {
                                                                        , z2: 0.0
                                                                        , distance: 0.0
                                                                        , vesselId: UUID())
+    var distance: Float = 0.0
+    let configuration = ARWorldTrackingConfiguration()
+    let cameraRelativePosition = SCNVector3(0,0,-0.1)
+    var startingPositionNode: SCNNode?
+    var endingPositionNode: SCNNode?
+    private var arView: ARSCNView?
+    private var circles:[SCNNode] = []
+    private var trackedNode:SCNNode?
+    
+    
+    init(activeVesselId: String) {
+        self.activeVesselId = activeVesselId
+    }
+    
     
     func setARView(_ arView: ARSCNView) {
         self.arView = arView
@@ -79,19 +93,6 @@ class ARDelegate: NSObject, ARSCNViewDelegate, ObservableObject {
         }
     }
     
-    // MARK: - Private
-    let configuration = ARWorldTrackingConfiguration()
-    let cameraRelativePosition = SCNVector3(0,0,-0.1)
-    var startingPositionNode: SCNNode?
-    var endingPositionNode: SCNNode?
-    private var arView: ARSCNView?
-    private var circles:[SCNNode] = []
-    private var trackedNode:SCNNode?
-    @Published var activeVesselId: String
-    
-    init(activeVesselId: String) {
-        self.activeVesselId = activeVesselId
-    }
     
     private func raycastResult(fromLocation location: CGPoint) -> ARRaycastResult? {
         guard let arView = arView,
@@ -165,9 +166,9 @@ class ARDelegate: NSObject, ARSCNViewDelegate, ObservableObject {
             return
         }
       
-        guard let xDistance = Service.distance3(fromStartingPositionNode: startingPositionNode, onView: arView, cameraRelativePosition: cameraRelativePosition)?.x else {return}
-        guard let yDistance = Service.distance3(fromStartingPositionNode: startingPositionNode, onView: arView, cameraRelativePosition: cameraRelativePosition)?.y else {return}
-        guard let zDistance = Service.distance3(fromStartingPositionNode: startingPositionNode, onView: arView, cameraRelativePosition: cameraRelativePosition)?.z else {return}
+        guard let xDistance = Service.distance3(fromStartingPositionNode: startingPositionNode, onView: arView, cameraRelativePosition: cameraRelativePosition)?.x else { return }
+        guard let yDistance = Service.distance3(fromStartingPositionNode: startingPositionNode, onView: arView, cameraRelativePosition: cameraRelativePosition)?.y else { return }
+        guard let zDistance = Service.distance3(fromStartingPositionNode: startingPositionNode, onView: arView, cameraRelativePosition: cameraRelativePosition)?.z else { return }
       
         DispatchQueue.main.async {
           

@@ -21,6 +21,10 @@
 		7DBE1DE62AB3C60A00E32091 /* HowTo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBE1DE52AB3C60A00E32091 /* HowTo.swift */; };
 		E055A3312ADD5F4300C0E6F6 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E055A3302ADD5F4300C0E6F6 /* MainView.swift */; };
 		E055A3332ADD610C00C0E6F6 /* Colors+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E055A3322ADD610C00C0E6F6 /* Colors+.swift */; };
+		E0686CE92AFA0E9900125F2A /* FeatureCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0686CE52AFA0E9900125F2A /* FeatureCard.swift */; };
+		E0686CEA2AFA0E9900125F2A /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0686CE62AFA0E9900125F2A /* PageView.swift */; };
+		E0686CEB2AFA0E9900125F2A /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0686CE72AFA0E9900125F2A /* PageViewController.swift */; };
+		E0686CEC2AFA0E9900125F2A /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0686CE82AFA0E9900125F2A /* PageControl.swift */; };
 		E0A027182ADE7B9900B33B81 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A027172ADE7B9900B33B81 /* Theme.swift */; };
 		E0A027292AE260CD00B33B81 /* ARDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A027282AE260CD00B33B81 /* ARDelegate.swift */; };
 		E0A0272C2AE267B200B33B81 /* ArView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A0272B2AE267B200B33B81 /* ArView.swift */; };
@@ -78,6 +82,10 @@
 		7DBE1DE52AB3C60A00E32091 /* HowTo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowTo.swift; sourceTree = "<group>"; };
 		E055A3302ADD5F4300C0E6F6 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		E055A3322ADD610C00C0E6F6 /* Colors+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+.swift"; sourceTree = "<group>"; };
+		E0686CE52AFA0E9900125F2A /* FeatureCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureCard.swift; sourceTree = "<group>"; };
+		E0686CE62AFA0E9900125F2A /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
+		E0686CE72AFA0E9900125F2A /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		E0686CE82AFA0E9900125F2A /* PageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
 		E0A027172ADE7B9900B33B81 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		E0A027282AE260CD00B33B81 /* ARDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDelegate.swift; sourceTree = "<group>"; };
 		E0A0272B2AE267B200B33B81 /* ArView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArView.swift; sourceTree = "<group>"; };
@@ -225,6 +233,17 @@
 			name = Extension;
 			sourceTree = "<group>";
 		};
+		E0686CE42AFA0E8000125F2A /* PageView */ = {
+			isa = PBXGroup;
+			children = (
+				E0686CE52AFA0E9900125F2A /* FeatureCard.swift */,
+				E0686CE82AFA0E9900125F2A /* PageControl.swift */,
+				E0686CE62AFA0E9900125F2A /* PageView.swift */,
+				E0686CE72AFA0E9900125F2A /* PageViewController.swift */,
+			);
+			path = PageView;
+			sourceTree = "<group>";
+		};
 		E0A0272A2AE2628C00B33B81 /* ArView */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +280,7 @@
 		E0C7F9D62ADBBD3E000C8505 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				E0686CE42AFA0E8000125F2A /* PageView */,
 				E0C7F9D72ADBBD55000C8505 /* RectangleButton.swift */,
 			);
 			path = CustomView;
@@ -400,9 +420,11 @@
 				E055A3312ADD5F4300C0E6F6 /* MainView.swift in Sources */,
 				E0C7F9D82ADBBD55000C8505 /* RectangleButton.swift in Sources */,
 				E0C7F9492AD52B38000C8505 /* VesselList.swift in Sources */,
+				E0686CE92AFA0E9900125F2A /* FeatureCard.swift in Sources */,
 				E0C7F95F2AD670D9000C8505 /* ManagedVesselInfo.swift in Sources */,
 				E0C7F9592AD66F0A000C8505 /* CoreDataHelper.swift in Sources */,
 				7D5F06212AB18E1D0004E9E8 /* NewMeasurement.swift in Sources */,
+				E0686CEC2AFA0E9900125F2A /* PageControl.swift in Sources */,
 				E0C7F95D2AD66FFE000C8505 /* LocalVesselDistance.swift in Sources */,
 				7D0300BD2AAFB29B0098500A /* AROFFSETAPPApp.swift in Sources */,
 				7DBE1DE62AB3C60A00E32091 /* HowTo.swift in Sources */,
@@ -410,9 +432,11 @@
 				E0A027292AE260CD00B33B81 /* ARDelegate.swift in Sources */,
 				7D5F061F2AB18E0E0004E9E8 /* LoadMeasurement.swift in Sources */,
 				E0C7F9612AD670E8000C8505 /* ManagedVesselDistance.swift in Sources */,
+				E0686CEB2AFA0E9900125F2A /* PageViewController.swift in Sources */,
 				E0C7F9572AD66EC8000C8505 /* CoreDataStore.swift in Sources */,
 				E0C7F9632AD676F2000C8505 /* LocalVesselLoader.swift in Sources */,
 				E0C7F9452AD51F2D000C8505 /* MeasurmentList.swift in Sources */,
+				E0686CEA2AFA0E9900125F2A /* PageView.swift in Sources */,
 				E0C7F9472AD522EA000C8505 /* MeasurmentListItem.swift in Sources */,
 				7D7537C82ACCC7AB0027E891 /* Service.swift in Sources */,
 				E0C7F95B2AD66F51000C8505 /* LocalVesselInfo.swift in Sources */,

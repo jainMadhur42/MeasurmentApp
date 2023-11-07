@@ -30,6 +30,26 @@ struct MainView: View {
                                                     , organisation: "")
     @AppStorage(Constants.activeVessel) private var activeVesselInfo = UUID().uuidString
     
+    fileprivate func createVesselList() -> VesselList {
+        return VesselList(vessels: $vessels
+                          , markAsSelected: { uuid in
+            activeVesselInfo = uuid
+            self.vessels = mapSelection(vessels: self.vessels)},
+                          deleteVessel: { delete(vessel: $0) },
+                          deletedistance: {
+            vesselDistanceLoader.delete(distance: $0) { error in
+                guard let _ = error else {
+                    
+                    return
+                }
+            }
+        }, share: { distance in
+            shareButton(distance: distance)
+        }, refresh: {
+            refresh()
+        })
+    }
+    
     var body: some View {
         NavigationView {
             Group {
@@ -54,23 +74,7 @@ struct MainView: View {
                         }
                     }
                 case .completed:
-                    VesselList(vessels: $vessels
-                               , markAsSelected: { uuid in
-                        activeVesselInfo = uuid
-                        self.vessels = mapSelection(vessels: self.vessels)},
-                               deleteVessel: { delete(vessel: $0) },
-                               deletedistance: {
-                        vesselDistanceLoader.delete(distance: $0) { error in
-                            guard let _ = error else {
-                                
-                                return
-                            }
-                        }
-                    }, share: { distance in
-                        shareButton(distance: distance)
-                    }, refresh: {
-                        refresh()
-                    })
+                    createVesselList()
                     .padding(.top)
                     .background(ThemeColor.backGround.color)
                 case .error(let error):
@@ -156,7 +160,6 @@ struct MainView: View {
         .onAppear() {
             
             Theme.navigationBarColors(background: ThemeColor.tint.uiColor)
-            
             Theme.tableViewTheme()
             refresh()
         }

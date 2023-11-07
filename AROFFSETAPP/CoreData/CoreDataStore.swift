@@ -68,7 +68,8 @@ public final class CoreDataStore {
                     return
                 }
                 completion(.success(managedDistance.map {
-                    LocalVesselDistance(x1: $0.x1, x2: $0.x2, y1: $0.y1
+                    LocalVesselDistance(id: $0.id
+                                        , x1: $0.x1, x2: $0.x2, y1: $0.y1
                                         , y2: $0.y2
                                         , z1: $0.z1
                                         , z2: $0.z2

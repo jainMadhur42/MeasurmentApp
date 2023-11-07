@@ -3,7 +3,7 @@ import SwiftUI
 
 struct ARViewRepresentable: UIViewRepresentable {
     
-    let arDelegate:ARDelegate
+    let arDelegate: ARDelegate
     
     func makeUIView(context: Context) -> some UIView {
         let arView = ARSCNView(frame: .zero)
